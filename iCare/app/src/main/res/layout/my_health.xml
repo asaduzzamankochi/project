@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <Button
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:text="@string/health_record"
+        android:id="@+id/btnHealthRecord"
+        android:layout_marginTop="-10dp" />
+
+    <Button
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:text="@string/vaccination_information"
+        android:id="@+id/btnVaccinationInformation"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:text="@string/diet_information"
+        android:id="@+id/btnDietInformation"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:text="@string/doctor"
+        android:id="@+id/btnDoctor"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:text="@string/appointment"
+        android:id="@+id/btnAppointment"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:text="@string/prescription"
+        android:id="@+id/btnPrescription"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_information"
+        android:onClick="btnProfileInformation"
+        android:id="@+id/btnEditProfile"
+        android:layout_marginTop="10dp" />
+</LinearLayout>

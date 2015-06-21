@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">ICare</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+
+    <!-- home_page -->
+    <string name="my_health">My Health</string>
+    <string name="family_health">Family Health</string>
+    <string name="hospitals">Hospitals</string>
+    <string name="doctors">Doctors</string>
+
+    <!-- abc -->
+    <string name="add_new_profile">Add New Profile</string>
+    <string name="profile_title">Profile Information</string>
+    <string name="name">Name :</string>
+    <string name="age">Age :</string>
+    <string name="gender">Gender :</string>
+    <string name="blood_group">Blood Group :</string>
+    <string-array name="blood_group_array">
+        <!--<item></item>-->
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
+    <string name="blood_group_prompt">Choose Blood Group: </string>
+    <string name="height">Height :</string>
+    <string name="weight">Weight :</string>
+    <string name="phone_no">Phone No :</string>
+    <string name="submit">Submit</string>
+    <string name="update">Update</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- my_health -->
+    <string name="health_record">Health Record</string>
+    <string name="vaccination_information">Vaccination Information</string>
+    <string name="diet_information">Diet Information</string>
+    <string name="doctor">Doctor</string>
+    <string name="appointment">Appointment</string>
+    <string name="prescription">Prescription</string>
+    <string name="profile_information">Profile Information</string>
+    <string name="edit_profile">Edit Profile</string>
+
+
+    <string name="header_profile"><b><u>Profile</u></b></string>
+
+
+    <!-- add_new_doctor-->
+    <string name="doctor_title">Doctor Information</string>
+    <string name="doctor_name">Doctor :</string>
+    <string name="speciality">Speciality :</string>
+    <string name="address">Address :</string>
+    <string name="email">Email :</string>
+    <string name="notes">Notes :</string>
+
+
+
+</resources>

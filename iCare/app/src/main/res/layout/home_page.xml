@@ -1,0 +1,36 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/my_health"
+        android:id="@+id/btnMyProfile"
+        android:onClick="btnMyHealth"
+        android:layout_marginTop="-100dp" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/family_health"
+        android:id="@+id/btnFamilyProfile"
+        android:layout_marginTop="25dp" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/hospitals"
+        android:id="@+id/btnHospitals"
+        android:layout_marginTop="25dp" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/doctors"
+        android:id="@+id/btnDoctors"
+        android:onClick="doctorList"
+        android:layout_marginTop="25dp" />
+</LinearLayout>
