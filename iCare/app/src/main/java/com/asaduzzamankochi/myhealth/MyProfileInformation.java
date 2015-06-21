@@ -98,7 +98,7 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
         btnEdit = (Button) findViewById(R.id.btnEdit);
         btnUpdate = (Button) findViewById(R.id.btnUpdate);
-        btnCancel = (Button) findViewById(R.id.btnCancel);
+        btnCancel = (Button) findViewById(R.id.btnDelete);
 
         dbHelper = new DBHelper(MyProfileInformation.this);
 

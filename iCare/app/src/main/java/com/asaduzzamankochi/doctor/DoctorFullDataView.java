@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.asaduzzamankochi.DB.DBHelper;
 import com.asaduzzamankochi.icare.R;
@@ -59,7 +60,7 @@ public class DoctorFullDataView extends ActionBarActivity {
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
         btnEdit = (Button) findViewById(R.id.btnEdit);
         btnUpdate = (Button) findViewById(R.id.btnUpdate);
-        btnCancel = (Button) findViewById(R.id.btnCancel);
+        btnCancel = (Button) findViewById(R.id.btnDelete);
 
         edtName = (EditText) findViewById(R.id.edtDocotrName);
         edtSpeciality = (EditText) findViewById(R.id.edtSpeciality);
@@ -82,6 +83,86 @@ public class DoctorFullDataView extends ActionBarActivity {
         showProfileData();
 
 
+    }
+
+
+    public void addDoctor(View v) {
+
+        getValue();
+        if (isFieldEmpty()) {
+            Toast.makeText(getApplicationContext(), "Field's could not empty", Toast.LENGTH_LONG).show();
+
+        } else {
+            doctor.setName(name);
+            doctor.setSpeciality(speciality);
+            doctor.setAddress(address);
+            doctor.setPhone(phone);
+            doctor.setEmail(email);
+            doctor.setNotes(notes);
+
+            if (dbHelper.insertDoctorProfile(doctor)) {
+                Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
+                showProfileData();
+                btnUpdate.setVisibility(View.GONE);
+                btnCancel.setVisibility(View.GONE);
+//                Intent intent = new Intent(MyProfileInformation.this, MyHealth.class);
+//                startActivity(intent);
+
+            } else {
+                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
+            }
+
+
+        }
+
+    }
+
+    public void editDoctor(View v) {
+        informationEditMode();
+        btnSubmit.setVisibility(View.GONE);
+        btnEdit.setVisibility(View.GONE);
+        btnUpdate.setVisibility(View.VISIBLE);
+        btnCancel.setVisibility(View.VISIBLE);
+    }
+
+    public void updateDoctor(View v) {
+        getValue();
+        if (isFieldEmpty()) {
+            Toast.makeText(getApplicationContext(), "Field's could not empty", Toast.LENGTH_LONG).show();
+
+        } else {
+            doctor.setId(id);
+            doctor.setName(name);
+            doctor.setSpeciality(speciality);
+            doctor.setAddress(address);
+            doctor.setPhone(phone);
+            doctor.setEmail(email);
+            doctor.setNotes(notes);
+            if (dbHelper.updateDoctorProfile(doctor)) {
+                Toast.makeText(getApplicationContext(), "Update Successfull", Toast.LENGTH_LONG).show();
+                showProfileData();
+                btnUpdate.setVisibility(View.GONE);
+                btnCancel.setVisibility(View.GONE);
+//                Intent intent = new Intent(MyProfileInformation.this, MyHealth.class);
+//                startActivity(intent);
+
+            } else {
+                Toast.makeText(getApplicationContext(), "Update Failed", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    public void deleteDoctor(View v){
+
+        doctor.setId(id);
+        if (dbHelper.deleteDoctorProfile(doctor)){
+            Toast.makeText(getApplicationContext(), "Delete Successfull", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(DoctorFullDataView.this, DoctorList.class);
+                startActivity(intent);
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Delete Failed", Toast.LENGTH_LONG).show();
+        }
     }
 
 
