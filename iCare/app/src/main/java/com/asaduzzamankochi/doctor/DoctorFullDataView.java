@@ -50,7 +50,7 @@ public class DoctorFullDataView extends ActionBarActivity {
     private ArrayList<Doctor> doctorData = new ArrayList<Doctor>();
     private Doctor doctor = new Doctor();
 
-    int id;
+    int id = -2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +79,17 @@ public class DoctorFullDataView extends ActionBarActivity {
         dbHelper = new DBHelper(DoctorFullDataView.this);
         Intent intent = getIntent();
         id = intent.getIntExtra("id", 0);
+        if (id == -2) {
+            informationEditMode();
+            btnSubmit.setVisibility(View.VISIBLE);
+            btnEdit.setVisibility(View.GONE);
+            btnUpdate.setVisibility(View.GONE);
+            btnCancel.setVisibility(View.GONE);
+        }
+        else {
+            showProfileData();
+        }
 
-        showProfileData();
 
 
     }
@@ -102,11 +111,11 @@ public class DoctorFullDataView extends ActionBarActivity {
 
             if (dbHelper.insertDoctorProfile(doctor)) {
                 Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
-                showProfileData();
-                btnUpdate.setVisibility(View.GONE);
-                btnCancel.setVisibility(View.GONE);
-//                Intent intent = new Intent(MyProfileInformation.this, MyHealth.class);
-//                startActivity(intent);
+//                showProfileData();
+//                btnUpdate.setVisibility(View.GONE);
+//                btnCancel.setVisibility(View.GONE);
+                Intent intent = new Intent(DoctorFullDataView.this, DoctorList.class);
+                startActivity(intent);
 
             } else {
                 Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
@@ -152,24 +161,23 @@ public class DoctorFullDataView extends ActionBarActivity {
         }
     }
 
-    public void deleteDoctor(View v){
+    public void deleteDoctor(View v) {
 
         doctor.setId(id);
-        if (dbHelper.deleteDoctorProfile(doctor)){
+        if (dbHelper.deleteDoctorProfile(doctor)) {
             Toast.makeText(getApplicationContext(), "Delete Successfull", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(DoctorFullDataView.this, DoctorList.class);
-                startActivity(intent);
-        }
-        else {
+            startActivity(intent);
+        } else {
             Toast.makeText(getApplicationContext(), "Delete Failed", Toast.LENGTH_LONG).show();
         }
     }
 
 
     public void showProfileData() {
-        doctorData = dbHelper.showDoctorInformation(id);
-
-        doctor = doctorData.get(0);
+        // doctorData = dbHelper.showDoctorInformation(id);
+        doctor = dbHelper.showDoctorInformation(id);
+        // doctor = doctorData.get(0);
 
         name = doctor.getName();
         speciality = doctor.getSpeciality();
@@ -226,9 +234,10 @@ public class DoctorFullDataView extends ActionBarActivity {
         edtNotes.setVisibility(View.VISIBLE);
 
 
-        doctorData = dbHelper.showDoctorInformation(id);
+        doctor = dbHelper.showDoctorInformation(id);
+//        doctorData = dbHelper.showDoctorInformation(id);
 
-        doctor = doctorData.get(0);
+//        doctor = doctorData.get(0);
 
         name = doctor.getName();
         speciality = doctor.getSpeciality();
@@ -256,7 +265,7 @@ public class DoctorFullDataView extends ActionBarActivity {
 
 
     public boolean isFieldEmpty() {
-        if ((name.trim().length() > 0) && (speciality.trim().length() > 0) && (address.trim().length() > 0) && (phone.trim().length() > 0) ) {
+        if ((name.trim().length() > 0) && (speciality.trim().length() > 0) && (address.trim().length() > 0) && (phone.trim().length() > 0)&& (notes.trim().length() > 0)) {
             return false;
         } else {
             return true;
@@ -274,8 +283,6 @@ public class DoctorFullDataView extends ActionBarActivity {
         notes = edtNotes.getText().toString();
 
     }
-
-
 
 
 }

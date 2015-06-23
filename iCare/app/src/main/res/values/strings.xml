@@ -11,8 +11,9 @@
     <string name="hospitals">Hospitals</string>
     <string name="doctors">Doctors</string>
 
-    <!-- abc -->
+    <!-- Profile -->
     <string name="add_new_profile">Add New Profile</string>
+    <string name="add_new_family__member">Add New Family Member</string>
     <string name="profile_title">Profile Information</string>
     <string name="name">Name :</string>
     <string name="age">Age :</string>

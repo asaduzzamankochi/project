@@ -144,7 +144,90 @@ public class DBHelper extends SQLiteOpenHelper {
         return profileData;
     }
 
+    //Family------------------
 
+    public ArrayList<Profile> showFamilyList(String category) {
+        ArrayList<Profile> familyNames = new ArrayList<Profile>();
+        Profile profile = new Profile();
+        String query = "SELECT * FROM profile WHERE category ='" + category + "'";
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                // get  the  data into array,or class variable
+//                doctor.setId(cursor.getInt(cursor.getColumnIndex("id")));
+//                doctor.setName(cursor.getString(cursor.getColumnIndex("name")));
+                familyNames.add(new Profile(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("name"))));
+//                doctorNames.add(doctor);
+            } while (cursor.moveToNext());
+        }
+        sqLiteDatabase.close();
+        return familyNames;
+    }
+
+    public Profile showFamilyInformation(int id) {
+        //ArrayList<Doctor> doctorNames = new ArrayList<Doctor>();
+        Profile profile = new Profile();
+        String query = "SELECT  * FROM profile WHERE id ='" + id + "'";
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                // get  the  data into array,or class variable
+                profile.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                profile.setName(cursor.getString(cursor.getColumnIndex("name")));
+                profile.setAge(cursor.getString(cursor.getColumnIndex("age")));
+                profile.setGender(cursor.getString(cursor.getColumnIndex("gender")));
+                profile.setBloodGroup(cursor.getString(cursor.getColumnIndex("bloodGroup")));
+                profile.setHeight(cursor.getString(cursor.getColumnIndex("height")));
+                profile.setWeight(cursor.getString(cursor.getColumnIndex("weight")));
+                profile.setPhoneNo(cursor.getString(cursor.getColumnIndex("phoneNo")));
+                profile.setCategory(cursor.getString(cursor.getColumnIndex("category")));
+
+                //doctorNames.add(new Doctor(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("name"))));
+                // doctorNames.add(doctor);
+            } while (cursor.moveToNext());
+        }
+        sqLiteDatabase.close();
+        return profile;
+    }
+
+
+    public boolean updateFamilyProfile(Profile profile) {
+
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", profile.getName());
+        values.put("age", profile.getAge());
+        values.put("gender", profile.getGender());
+        values.put("bloodGroup", profile.getBloodGroup());
+        values.put("height", profile.getHeight());
+        values.put("weight", profile.getWeight());
+        values.put("phoneNo", profile.getPhoneNo());
+        values.put("category", profile.getCategory());
+
+        try {
+            sqLiteDatabase.update("profile", values, "id= ?", new String[]{Integer.toString(profile.getId())});
+            Log.i(TAG, "Success");
+            return true;
+        } catch (SQLException e) {
+            Log.i(TAG, "Error");
+            return false;
+        }
+
+    }
+    public boolean deleteFamilyProfile(Profile profile) {
+
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        try {
+            sqLiteDatabase.delete("profile", "id= ?", new String[]{Integer.toString(profile.getId())});
+            Log.i(TAG, "Success");
+            return true;
+        } catch (SQLException e) {
+            Log.i(TAG, "Error");
+            return false;
+        }
+    }
     public int checkId() {
         String query = "SELECT * FROM profile";
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -209,7 +292,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         try {
-            sqLiteDatabase.delete("doctor", "id= ?", new String[]{Integer.toString(doctor.getId())});
+            sqLiteDatabase.delete("doctor_info", "id= ?", new String[]{Integer.toString(doctor.getId())});
             Log.i(TAG, "Success");
             return true;
         } catch (SQLException e) {
@@ -228,18 +311,18 @@ public class DBHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 // get  the  data into array,or class variable
-                doctor.setId(cursor.getInt(cursor.getColumnIndex("id")));
-                doctor.setName(cursor.getString(cursor.getColumnIndex("name")));
-                //doctorNames.add(new Doctor(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("name"))));
-                doctorNames.add(doctor);
+//                doctor.setId(cursor.getInt(cursor.getColumnIndex("id")));
+//                doctor.setName(cursor.getString(cursor.getColumnIndex("name")));
+                doctorNames.add(new Doctor(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("name"))));
+//                doctorNames.add(doctor);
             } while (cursor.moveToNext());
         }
         sqLiteDatabase.close();
         return doctorNames;
     }
 
-    public ArrayList<Doctor> showDoctorInformation(int id) {
-        ArrayList<Doctor> doctorNames = new ArrayList<Doctor>();
+    public Doctor showDoctorInformation(int id) {
+        //ArrayList<Doctor> doctorNames = new ArrayList<Doctor>();
         Doctor doctor = new Doctor();
         String query = "SELECT  * FROM doctor_info WHERE id ='" + id + "'";
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -256,11 +339,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 doctor.setNotes(cursor.getString(cursor.getColumnIndex("notes")));
 
                 //doctorNames.add(new Doctor(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("name"))));
-                doctorNames.add(doctor);
+               // doctorNames.add(doctor);
             } while (cursor.moveToNext());
         }
         sqLiteDatabase.close();
-        return doctorNames;
+        return doctor;
     }
 
 

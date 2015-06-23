@@ -11,14 +11,13 @@ import android.widget.ListView;
 import com.asaduzzamankochi.DB.DBHelper;
 import com.asaduzzamankochi.icare.R;
 import com.asaduzzamankochi.modelClass.Doctor;
-import com.asaduzzamankochi.modelClass.Profile;
 
 import java.util.ArrayList;
 
 /**
  * Created by kochi on 20-Jun-15.
  */
-public class DoctorList extends ActionBarActivity{
+public class DoctorList extends ActionBarActivity {
 
     private static DBHelper dbHelper;
     private ListView listView;
@@ -55,8 +54,10 @@ public class DoctorList extends ActionBarActivity{
 
     }
 
-    public void addDoctor(){
-
+    public void addInfo(View v) {
+        Intent intent = new Intent(DoctorList.this, DoctorFullDataView.class);
+        intent.putExtra("id", -2);
+        startActivity(intent);
     }
 
 }

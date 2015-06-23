@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="5dp">
+        android:padding="10dp">
 
         <LinearLayout
             android:id="@+id/main_layout"
@@ -49,7 +49,7 @@
                     android:id="@+id/txtViewDoctorName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="55dp"
+                    android:layout_marginLeft="50dp"
                     android:text="@string/name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:visibility="gone" />
@@ -79,7 +79,7 @@
                     android:id="@+id/txtViewSpeciality"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="73dp"
+                    android:layout_marginLeft="27dp"
                     android:text="@string/name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:visibility="gone" />
@@ -110,7 +110,7 @@
                     android:id="@+id/txtViewAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="45dp"
+                    android:layout_marginLeft="38dp"
                     android:text="@string/name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:visibility="gone" />
@@ -141,8 +141,7 @@
                     android:id="@+id/txtViewDoctorPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="51dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="25dp"
                     android:text="@string/name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:visibility="gone" />
@@ -171,7 +170,7 @@
                     android:id="@+id/txtViewEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="60dp"
                     android:text="@string/name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:visibility="gone" />
@@ -200,19 +199,19 @@
 
                 <TextView
                     android:id="@+id/txtViewNotes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="48dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_width="230dp"
+                    android:layout_height="150dp"
+                    android:layout_marginLeft="57dp"
                     android:text="@string/name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/edtNotes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="230dp"
+                    android:layout_height="150dp"
                     android:layout_marginLeft="57dp"
+                    android:background="#fff7f2ff"
                     android:inputType="textMultiLine"
                     android:visibility="visible" />
             </LinearLayout>

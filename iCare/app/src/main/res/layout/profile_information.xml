@@ -290,7 +290,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_marginLeft="20dp" />
+                    android:layout_marginLeft="23dp" />
 
                 <EditText
                     android:id="@+id/edtPhoneNo"

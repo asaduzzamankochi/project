@@ -15,18 +15,8 @@ public class Profile {
     String category;
 
     @Override
-    public String toString() {
-        return "Profile{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", birthDay='" + age + '\'' +
-                ", gender='" + gender + '\'' +
-                ", bloodGroup='" + bloodGroup + '\'' +
-                ", height='" + height + '\'' +
-                ", weight='" + weight + '\'' +
-                ", phoneNo='" + phoneNo + '\'' +
-                ", category='" + category + '\'' +
-                '}';
+    public String toString()  {
+        return  name ;
     }
 
     public String getCategory() {
@@ -38,6 +28,10 @@ public class Profile {
     }
 
     public Profile() {
+    }
+    public Profile(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public Profile(int id, String name, String birthDay, String gender, String bloodGroup, String height, String weight, String phoneNo, String category) {

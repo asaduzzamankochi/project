@@ -1,4 +1,4 @@
-package com.asaduzzamankochi.myhealth;
+package com.asaduzzamankochi.familyhealth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,16 +15,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.asaduzzamankochi.DB.DBHelper;
-import com.asaduzzamankochi.home.HomePage;
+import com.asaduzzamankochi.doctor.DoctorList;
 import com.asaduzzamankochi.icare.R;
 import com.asaduzzamankochi.modelClass.Profile;
 
 import java.util.ArrayList;
 
 /**
- * Created by Mobile App Develop on 10-6-15.
+ * Created by Mobile App Develop on 22-6-15.
  */
-public class MyProfileInformation extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
+public class FamilyMemberInformation extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
 
 
     private Button btnSubmit;
@@ -63,13 +63,12 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
     private String height;
     private String weight;
     private String phoneNo;
-    private String category = "M";
+    private String category = "F";
 
     private DBHelper dbHelper;
     private ArrayList<Profile> profileData = new ArrayList<Profile>();
     private Profile profile = new Profile();
-
-    private int home;
+    private int id =-2;
 
 
     @Override
@@ -104,15 +103,22 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
         btnUpdate = (Button) findViewById(R.id.btnUpdate);
         btnCancel = (Button) findViewById(R.id.btnDelete);
 
-        dbHelper = new DBHelper(MyProfileInformation.this);
 
+        dbHelper = new DBHelper(FamilyMemberInformation.this);
         Intent intent = getIntent();
-        home = intent.getIntExtra("home", 0);
+        id = intent.getIntExtra("id", 0);
+
 //        secondaryLayout.setVisibility(View.VISIBLE);
 //        mainLayout.setVisibility(View.GONE);
-
-
-        showProfileData();
+        if (id == -2) {
+            informationAddMode();
+            btnSubmit.setVisibility(View.VISIBLE);
+            btnEdit.setVisibility(View.GONE);
+            btnUpdate.setVisibility(View.GONE);
+            btnCancel.setVisibility(View.GONE);
+        } else {
+            showProfileData();
+        }
 
 
     }
@@ -159,19 +165,12 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
 
             if (dbHelper.insertMyProfile(profile)) {
                 Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
-                if (home == 1) {
-                    Intent intent = new Intent(MyProfileInformation.this, HomePage.class);
-                    startActivity(intent);
+//                showProfileData();
+//                btnUpdate.setVisibility(View.GONE);
+//                btnCancel.setVisibility(View.GONE);
+                Intent intent = new Intent(FamilyMemberInformation.this, FamilyMemberList.class);
+                startActivity(intent);
 
-                } else {
-                    showProfileData();
-                    btnUpdate.setVisibility(View.GONE);
-                    btnCancel.setVisibility(View.GONE);
-//                Intent intent = new Intent(MyProfileInformation.this, MyHealth.class);
-//                startActivity(intent);
-
-
-                }
             } else {
                 Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
             }
@@ -203,7 +202,7 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
             profile.setWeight(weight);
             profile.setPhoneNo(phoneNo);
             profile.setCategory(category);
-            if (dbHelper.updateMyProfile(profile)) {
+            if (dbHelper.updateFamilyProfile(profile)) {
                 Toast.makeText(getApplicationContext(), "Update Successfull", Toast.LENGTH_LONG).show();
                 showProfileData();
                 btnUpdate.setVisibility(View.GONE);
@@ -217,10 +216,16 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
         }
     }
 
+    // Delete Profile
     public void cancelProfile(View v) {
-        showProfileData();
-        btnUpdate.setVisibility(View.GONE);
-        btnCancel.setVisibility(View.GONE);
+        profile.setId(id);
+        if (dbHelper.deleteFamilyProfile(profile)) {
+            Toast.makeText(getApplicationContext(), "Delete Successfull", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(FamilyMemberInformation.this, FamilyMemberList.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(getApplicationContext(), "Delete Failed", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void getValue() {
@@ -236,16 +241,18 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
     }
 
     public void showProfileData() {
-        profileData = dbHelper.showProfile(category);
+//        profileData = dbHelper.showProfile(category);
 
-        if (profileData.isEmpty()) {
+        profile = dbHelper.showFamilyInformation(id);
 
-            secondaryLayout.setVisibility(View.GONE);
-            mainLayout.setVisibility(View.VISIBLE);
+//        if (profileData.isEmpty()) {
+//
+//            secondaryLayout.setVisibility(View.VISIBLE);
+//            mainLayout.setVisibility(View.GONE);
+//
+//        } else {
 
-        } else {
-
-            profile = profileData.get(0);
+//            profile = profileData.get(0);
 
             name = profile.getName();
             age = profile.getAge();
@@ -267,7 +274,7 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
             txtWeight.setText(weight);
             txtPhone.setText(phoneNo);
 
-        }
+//        }
 
 
     }
@@ -312,10 +319,10 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
         edtWeight.setVisibility(View.VISIBLE);
         edtPhone.setVisibility(View.VISIBLE);
 
-
-        profileData = dbHelper.showProfile(category);
-
-        profile = profileData.get(0);
+        profile = dbHelper.showFamilyInformation(id);
+//        profileData = dbHelper.showProfile(category);
+//
+//        profile = profileData.get(0);
 
         name = profile.getName();
         age = profile.getAge();
@@ -339,6 +346,30 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
         edtPhone.setText(phoneNo);
 
         //move the curser to the end of the line
+        edtName.setSelection(edtName.getText().length());
+        edtAge.setSelection(edtAge.getText().length());
+        edtHeight.setSelection(edtHeight.getText().length());
+        edtWeight.setSelection(edtWeight.getText().length());
+        edtPhone.setSelection(edtPhone.getText().length());
+
+    }
+    public void informationAddMode() {
+        //set edit text field to editable
+        txtName.setVisibility(View.GONE);
+        txtAge.setVisibility(View.GONE);
+        txtGender.setVisibility(View.GONE);
+        txtBloodGroup.setVisibility(View.GONE);
+        txtHeight.setVisibility(View.GONE);
+        txtWeight.setVisibility(View.GONE);
+        txtPhone.setVisibility(View.GONE);
+
+        edtName.setVisibility(View.VISIBLE);
+        edtAge.setVisibility(View.VISIBLE);
+        radioGender.setVisibility(View.VISIBLE);
+        spinnerBloodGroup.setVisibility(View.VISIBLE);
+        edtHeight.setVisibility(View.VISIBLE);
+        edtWeight.setVisibility(View.VISIBLE);
+        edtPhone.setVisibility(View.VISIBLE);        //move the curser to the end of the line
         edtName.setSelection(edtName.getText().length());
         edtAge.setSelection(edtAge.getText().length());
         edtHeight.setSelection(edtHeight.getText().length());
