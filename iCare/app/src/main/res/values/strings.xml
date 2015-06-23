@@ -53,6 +53,7 @@
 
 
     <!-- add_new_doctor-->
+    <string name="add_new_doctor">Add New Doctor</string>
     <string name="doctor_title">Doctor Information</string>
     <string name="doctor_name">Doctor :</string>
     <string name="speciality">Speciality :</string>

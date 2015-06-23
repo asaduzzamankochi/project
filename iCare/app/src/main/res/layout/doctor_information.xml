@@ -200,7 +200,7 @@
                 <TextView
                     android:id="@+id/txtViewNotes"
                     android:layout_width="230dp"
-                    android:layout_height="150dp"
+                    android:layout_height="80dp"
                     android:layout_marginLeft="57dp"
                     android:text="@string/name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
@@ -209,7 +209,7 @@
                 <EditText
                     android:id="@+id/edtNotes"
                     android:layout_width="230dp"
-                    android:layout_height="150dp"
+                    android:layout_height="80dp"
                     android:layout_marginLeft="57dp"
                     android:background="#fff7f2ff"
                     android:inputType="textMultiLine"

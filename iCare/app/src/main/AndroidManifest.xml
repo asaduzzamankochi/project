@@ -41,6 +41,10 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name="com.asaduzzamankochi.familyhealth.FamilyHealth"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="com.asaduzzamankochi.familyhealth.FamilyMemberInformation"
             android:label="@string/app_name" >
         </activity>

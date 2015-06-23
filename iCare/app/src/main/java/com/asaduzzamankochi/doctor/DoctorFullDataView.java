@@ -1,5 +1,7 @@
 package com.asaduzzamankochi.doctor;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -85,11 +87,9 @@ public class DoctorFullDataView extends ActionBarActivity {
             btnEdit.setVisibility(View.GONE);
             btnUpdate.setVisibility(View.GONE);
             btnCancel.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             showProfileData();
         }
-
 
 
     }
@@ -162,15 +162,28 @@ public class DoctorFullDataView extends ActionBarActivity {
     }
 
     public void deleteDoctor(View v) {
-
         doctor.setId(id);
-        if (dbHelper.deleteDoctorProfile(doctor)) {
-            Toast.makeText(getApplicationContext(), "Delete Successfull", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(DoctorFullDataView.this, DoctorList.class);
-            startActivity(intent);
-        } else {
-            Toast.makeText(getApplicationContext(), "Delete Failed", Toast.LENGTH_LONG).show();
-        }
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setTitle("Are you sure you want to delete? ");
+        alertBuilder.setNegativeButton("Cancel", null);
+        alertBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Delete function call using DBHelper object
+                if (dbHelper.deleteDoctorProfile(doctor)) {
+                    Toast.makeText(getApplicationContext(), "Delete Successfull", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(DoctorFullDataView.this, DoctorList.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Delete Failed", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        AlertDialog alertDialog = alertBuilder.create();
+        alertDialog.show();
+//--
+
+
     }
 
 
@@ -265,7 +278,7 @@ public class DoctorFullDataView extends ActionBarActivity {
 
 
     public boolean isFieldEmpty() {
-        if ((name.trim().length() > 0) && (speciality.trim().length() > 0) && (address.trim().length() > 0) && (phone.trim().length() > 0)&& (notes.trim().length() > 0)) {
+        if ((name.trim().length() > 0) && (speciality.trim().length() > 0) && (address.trim().length() > 0) && (phone.trim().length() > 0) && (notes.trim().length() > 0)) {
             return false;
         } else {
             return true;

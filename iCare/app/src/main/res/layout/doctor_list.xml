@@ -12,13 +12,13 @@
         android:visibility="gone">
 
         <Button
-            android:id="@+id/textViewAddNewProfile"
+            android:id="@+id/buttonAddNewProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:onClick="btnAddNew"
-            android:text="@string/add_new_family__member"
+            android:text="@string/add_new_doctor"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
 

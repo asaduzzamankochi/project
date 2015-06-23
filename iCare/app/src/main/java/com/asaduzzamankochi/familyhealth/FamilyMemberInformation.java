@@ -1,5 +1,7 @@
 package com.asaduzzamankochi.familyhealth;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -15,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.asaduzzamankochi.DB.DBHelper;
-import com.asaduzzamankochi.doctor.DoctorList;
 import com.asaduzzamankochi.icare.R;
 import com.asaduzzamankochi.modelClass.Profile;
 
@@ -68,7 +69,7 @@ public class FamilyMemberInformation extends ActionBarActivity implements Adapte
     private DBHelper dbHelper;
     private ArrayList<Profile> profileData = new ArrayList<Profile>();
     private Profile profile = new Profile();
-    private int id =-2;
+    private int id = -2;
 
 
     @Override
@@ -102,6 +103,7 @@ public class FamilyMemberInformation extends ActionBarActivity implements Adapte
         btnEdit = (Button) findViewById(R.id.btnEdit);
         btnUpdate = (Button) findViewById(R.id.btnUpdate);
         btnCancel = (Button) findViewById(R.id.btnDelete);
+        btnCancel.setText("Delete");
 
 
         dbHelper = new DBHelper(FamilyMemberInformation.this);
@@ -219,13 +221,25 @@ public class FamilyMemberInformation extends ActionBarActivity implements Adapte
     // Delete Profile
     public void cancelProfile(View v) {
         profile.setId(id);
-        if (dbHelper.deleteFamilyProfile(profile)) {
-            Toast.makeText(getApplicationContext(), "Delete Successfull", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(FamilyMemberInformation.this, FamilyMemberList.class);
-            startActivity(intent);
-        } else {
-            Toast.makeText(getApplicationContext(), "Delete Failed", Toast.LENGTH_LONG).show();
-        }
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setTitle("Are you sure you want to delete? ");
+        alertBuilder.setNegativeButton("Cancel", null);
+        alertBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Delete function call using DBHelper object
+                if (dbHelper.deleteFamilyProfile(profile)) {
+                    Toast.makeText(getApplicationContext(), "Delete Successfull", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(FamilyMemberInformation.this, FamilyMemberList.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Delete Failed", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        AlertDialog alertDialog = alertBuilder.create();
+        alertDialog.show();
+
     }
 
     public void getValue() {
@@ -254,25 +268,25 @@ public class FamilyMemberInformation extends ActionBarActivity implements Adapte
 
 //            profile = profileData.get(0);
 
-            name = profile.getName();
-            age = profile.getAge();
-            gender = profile.getGender();
-            bloodGroup = profile.getBloodGroup();
-            height = profile.getHeight();
-            weight = profile.getWeight();
-            phoneNo = profile.getPhoneNo();
+        name = profile.getName();
+        age = profile.getAge();
+        gender = profile.getGender();
+        bloodGroup = profile.getBloodGroup();
+        height = profile.getHeight();
+        weight = profile.getWeight();
+        phoneNo = profile.getPhoneNo();
 
-            category = profile.getCategory();
+        category = profile.getCategory();
 
-            informationViewMode();
+        informationViewMode();
 
-            txtName.setText(name);
-            txtAge.setText(age);
-            txtGender.setText(gender);
-            txtBloodGroup.setText(bloodGroup);
-            txtHeight.setText(height);
-            txtWeight.setText(weight);
-            txtPhone.setText(phoneNo);
+        txtName.setText(name);
+        txtAge.setText(age);
+        txtGender.setText(gender);
+        txtBloodGroup.setText(bloodGroup);
+        txtHeight.setText(height);
+        txtWeight.setText(weight);
+        txtPhone.setText(phoneNo);
 
 //        }
 
@@ -353,6 +367,7 @@ public class FamilyMemberInformation extends ActionBarActivity implements Adapte
         edtPhone.setSelection(edtPhone.getText().length());
 
     }
+
     public void informationAddMode() {
         //set edit text field to editable
         txtName.setVisibility(View.GONE);

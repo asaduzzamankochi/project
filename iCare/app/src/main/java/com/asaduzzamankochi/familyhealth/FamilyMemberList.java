@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -24,6 +25,7 @@ public class FamilyMemberList extends ActionBarActivity {
 
     private LinearLayout mainLayout;
     private LinearLayout secondaryLayout;
+    private Button btnAddNewFamily;
 
     private static DBHelper dbHelper;
     private ListView listView;
@@ -37,6 +39,7 @@ public class FamilyMemberList extends ActionBarActivity {
         setContentView(R.layout.doctor_list);
         mainLayout = (LinearLayout) findViewById(R.id.main_layout);
         secondaryLayout = (LinearLayout) findViewById(R.id.secondary_layout);
+        btnAddNewFamily = (Button)findViewById(R.id.buttonAddNewProfile);
 
         listView = (ListView) findViewById(R.id.listView);
         dbHelper = new DBHelper(FamilyMemberList.this);
@@ -46,6 +49,7 @@ public class FamilyMemberList extends ActionBarActivity {
 
             secondaryLayout.setVisibility(View.VISIBLE);
             mainLayout.setVisibility(View.GONE);
+            btnAddNewFamily.setText("Add New Family Member");
 
         }
         //listAdapter = new ArrayAdapter<Employee>(this, android.R.layout.simple_list_item_1, doctorName);
@@ -58,7 +62,7 @@ public class FamilyMemberList extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //String itemName = (String) listView.getAdapter().getItem(position);
                 int item = familyName.get(position).getId();
-                Intent intent = new Intent(FamilyMemberList.this, FamilyMemberInformation.class);
+                Intent intent = new Intent(FamilyMemberList.this, FamilyHealth.class);
                 intent.putExtra("id", item);
                 startActivity(intent);
                 //Toast.makeText(getApplicationContext(), itemName + " Selected !!", Toast.LENGTH_LONG).show();
