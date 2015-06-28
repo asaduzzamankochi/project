@@ -26,7 +26,8 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE profile(id integer primary key autoincrement,name TEXT, age TEXT, gender TEXT, bloodGroup TEXT, height TEXT, weight TEXT, phoneNo TEXT,category TEXT)");
-        db.execSQL("CREATE TABLE doctor_info(id integer primary key autoincrement,name TEXT, speciality TEXT, address TEXT, phone TEXT, email TEXT, notes TEXT)");
+        db.execSQL("CREATE TABLE doctor(id integer primary key autoincrement,name TEXT, speciality TEXT, address TEXT, phone TEXT, email TEXT, notes TEXT)");
+        db.execSQL("CREATE TABLE personal_doctor(id integer primary key autoincrement, idProfile integer, idDoctor integer, FOREIGN KEY(idProfile) REFERENCES profile(id), FOREIGN KEY(idDoctor) REFERENCES doctor(id))");
         // db.execSQL("CREATE TABLE family_profile(id integer primary key autoincrement,name TEXT, birthDay TEXT, gender TEXT, bloodGroup TEXT, height TEXT, weight TEXT, phoneNo TEXT,category TEXT)");
     }
 
@@ -65,26 +66,6 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-//    public void insertFamilyProfile(String name, String birthDay, String gender, String bloodGroup, String height, String weight, String phoneNo, String category) {
-//        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put("name", name);
-//        values.put("birthDay", birthDay);
-//        values.put("gender", gender);
-//        values.put("bloodGroup", bloodGroup);
-//        values.put("height", height);
-//        values.put("weight", weight);
-//        values.put("phoneNo", phoneNo);
-//        values.put("category", category);
-//        try {
-//            sqLiteDatabase.insert("family_profile", null, values);
-//            Log.i(TAG, "Success");
-//        } catch (SQLException e) {
-//            Log.i(TAG, "Error");
-//        }
-//
-//
-//    }
 
     public boolean updateMyProfile(Profile profile) {
 
@@ -149,7 +130,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<Profile> showFamilyList(String category) {
         ArrayList<Profile> familyNames = new ArrayList<Profile>();
         Profile profile = new Profile();
-        String query = "SELECT * FROM profile WHERE category ='" + category + "'";
+        String query = "SELECT * FROM profile WHERE category ='" + category + "' ORDER BY name ASC";
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
         if (cursor.moveToFirst()) {
@@ -254,7 +235,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("email", doctor.getEmail());
         values.put("notes", doctor.getNotes());
         try {
-            sqLiteDatabase.insert("doctor_info", null, values);
+            sqLiteDatabase.insert("doctor", null, values);
             Log.i(TAG, "Success");
             return true;
         } catch (SQLException e) {
@@ -278,7 +259,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("id", doctor.getId());
 
         try {
-            sqLiteDatabase.update("doctor_info", values, "id= ?", new String[]{Integer.toString(doctor.getId())});
+            sqLiteDatabase.update("doctor", values, "id= ?", new String[]{Integer.toString(doctor.getId())});
             Log.i(TAG, "Success");
             return true;
         } catch (SQLException e) {
@@ -292,7 +273,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         try {
-            sqLiteDatabase.delete("doctor_info", "id= ?", new String[]{Integer.toString(doctor.getId())});
+            sqLiteDatabase.delete("doctor", "id= ?", new String[]{Integer.toString(doctor.getId())});
             Log.i(TAG, "Success");
             return true;
         } catch (SQLException e) {
@@ -305,7 +286,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<Doctor> showDoctorList() {
         ArrayList<Doctor> doctorNames = new ArrayList<Doctor>();
         Doctor doctor = new Doctor();
-        String query = "SELECT  * FROM doctor_info";
+        String query = "SELECT  * FROM doctor ORDER BY name ASC";
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
         if (cursor.moveToFirst()) {
@@ -324,7 +305,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public Doctor showDoctorInformation(int id) {
         //ArrayList<Doctor> doctorNames = new ArrayList<Doctor>();
         Doctor doctor = new Doctor();
-        String query = "SELECT  * FROM doctor_info WHERE id ='" + id + "'";
+        String query = "SELECT  * FROM doctor WHERE id ='" + id + "'";
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
         if (cursor.moveToFirst()) {
@@ -346,5 +327,43 @@ public class DBHelper extends SQLiteOpenHelper {
         return doctor;
     }
 
+    //----- personal doctor ------
+
+    public boolean insertPersonalDoctor(int idProfile, int idDoctor) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("idProfile", idProfile);
+        values.put("idDoctor", idDoctor);
+        try {
+            sqLiteDatabase.insert("personal_doctor", null, values);
+            Log.i(TAG, "Success");
+            return true;
+        } catch (SQLException e) {
+            Log.i(TAG, "Error");
+            return false;
+        }
+
+
+    }
+
+    public ArrayList<Doctor> showPersonalDoctorList(int profileId) {
+        ArrayList<Doctor> doctorNames = new ArrayList<Doctor>();
+        Doctor doctor = new Doctor();
+        //String query = "SELECT  * FROM doctor INNER JOIN personal_doctor ON id = idDoctor";
+        String query = "SELECT * FROM profile as p, doctor as d, personal_doctor as pd WHERE p.id = pd.idProfile AND d.id = pd.idDoctor AND p.id = '" + profileId + "' ORDER BY d.name ASC";
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                // get  the  data into array,or class variable
+//                doctor.setId(cursor.getInt(cursor.getColumnIndex("id")));
+//                doctor.setName(cursor.getString(cursor.getColumnIndex("name")));
+                doctorNames.add(new Doctor(cursor.getInt(cursor.getColumnIndex("personal_doctor.idDoctor")), cursor.getString(cursor.getColumnIndex("doctor.name"))));
+//                doctorNames.add(doctor);
+            } while (cursor.moveToNext());
+        }
+        sqLiteDatabase.close();
+        return doctorNames;
+    }
 
 }

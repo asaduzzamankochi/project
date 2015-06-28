@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.asaduzzamankochi.DB.DBHelper;
 import com.asaduzzamankochi.icare.R;
@@ -26,6 +27,8 @@ public class FamilyMemberList extends ActionBarActivity {
     private LinearLayout mainLayout;
     private LinearLayout secondaryLayout;
     private Button btnAddNewFamily;
+    private TextView textView;
+    private TextView textViewTitle;
 
     private static DBHelper dbHelper;
     private ListView listView;
@@ -40,6 +43,9 @@ public class FamilyMemberList extends ActionBarActivity {
         mainLayout = (LinearLayout) findViewById(R.id.main_layout);
         secondaryLayout = (LinearLayout) findViewById(R.id.secondary_layout);
         btnAddNewFamily = (Button)findViewById(R.id.buttonAddNewProfile);
+        textView = (TextView)findViewById(R.id.textView);
+        textViewTitle = (TextView)findViewById(R.id.textView2);
+        textViewTitle.setText("List of Family Members :");
 
         listView = (ListView) findViewById(R.id.listView);
         dbHelper = new DBHelper(FamilyMemberList.this);
@@ -50,6 +56,7 @@ public class FamilyMemberList extends ActionBarActivity {
             secondaryLayout.setVisibility(View.VISIBLE);
             mainLayout.setVisibility(View.GONE);
             btnAddNewFamily.setText("Add New Family Member");
+            textView.setText("Family Member List is Empty!!");
 
         }
         //listAdapter = new ArrayAdapter<Employee>(this, android.R.layout.simple_list_item_1, doctorName);

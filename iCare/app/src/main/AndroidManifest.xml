@@ -29,6 +29,14 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name="com.asaduzzamankochi.myhealth.MyPersonalDoctor"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.asaduzzamankochi.myhealth.AddMyPersonalDoctor"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="com.asaduzzamankochi.doctor.DoctorList"
             android:label="@string/app_name" >
         </activity>
@@ -48,6 +56,16 @@
             android:name="com.asaduzzamankochi.familyhealth.FamilyMemberInformation"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="com.asaduzzamankochi.familyhealth.PersonalDoctor"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.asaduzzamankochi.familyhealth.AddPersonalDoctor"
+            android:label="@string/app_name" >
+        </activity>
+
+
     </application>
 
 </manifest>

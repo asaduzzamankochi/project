@@ -29,6 +29,7 @@
         android:layout_width="225dp"
         android:layout_height="wrap_content"
         android:text="@string/doctor"
+        android:onClick="btnMyPersonalDoctor"
         android:id="@+id/btnDoctor"
         android:layout_marginTop="10dp" />
 

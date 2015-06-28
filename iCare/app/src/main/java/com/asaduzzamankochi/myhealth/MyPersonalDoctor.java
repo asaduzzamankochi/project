@@ -1,4 +1,4 @@
-package com.asaduzzamankochi.doctor;
+package com.asaduzzamankochi.myhealth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,18 +12,20 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.asaduzzamankochi.DB.DBHelper;
-import com.asaduzzamankochi.familyhealth.FamilyMemberInformation;
+import com.asaduzzamankochi.doctor.DoctorFullDataView;
 import com.asaduzzamankochi.icare.R;
 import com.asaduzzamankochi.modelClass.Doctor;
+import com.asaduzzamankochi.modelClass.Profile;
 
 import java.util.ArrayList;
 
 /**
- * Created by kochi on 20-Jun-15.
+ * Created by kochi on 28-Jun-15.
  */
-public class DoctorList extends ActionBarActivity {
+public class MyPersonalDoctor extends ActionBarActivity {
 
     private LinearLayout mainLayout;
     private LinearLayout secondaryLayout;
@@ -35,6 +37,11 @@ public class DoctorList extends ActionBarActivity {
     private ListView listView;
     private ArrayAdapter<Doctor> listAdapter;
     private ArrayList<Doctor> doctorName = new ArrayList<Doctor>();
+    private ArrayList<Profile> profileData = new ArrayList<Profile>();
+    private Profile profile = new Profile();
+    private String category = "M";
+
+    private int idProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,19 +52,24 @@ public class DoctorList extends ActionBarActivity {
         btnAddNewFamily = (Button)findViewById(R.id.buttonAddNewProfile);
         textView = (TextView)findViewById(R.id.textView);
         textViewTitle = (TextView)findViewById(R.id.textView2);
-        textViewTitle.setText("List of Doctors :");
+        textViewTitle.setText("List of My Doctor :");
+
 
         listView = (ListView) findViewById(R.id.listView);
-        dbHelper = new DBHelper(DoctorList.this);
+        dbHelper = new DBHelper(MyPersonalDoctor.this);
 
-        doctorName = dbHelper.showDoctorList();
+        profileData = dbHelper.showProfile(category);
+        profile = profileData.get(0);
+        idProfile = profile.getId();
+
+        doctorName = dbHelper.showPersonalDoctorList(idProfile);
 
         if (doctorName.isEmpty()) {
 
             secondaryLayout.setVisibility(View.VISIBLE);
             mainLayout.setVisibility(View.GONE);
-            btnAddNewFamily.setText("Add New Doctor");
-            textView.setText("Doctor List is Empty!!");
+            btnAddNewFamily.setText("Add Personal Doctor");
+            textView.setText("Personal Doctor List is Empty!!");
 
         }
         //listAdapter = new ArrayAdapter<Employee>(this, android.R.layout.simple_list_item_1, doctorName);
@@ -70,7 +82,9 @@ public class DoctorList extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //String itemName = (String) listView.getAdapter().getItem(position);
                 int item = doctorName.get(position).getId();
-                Intent intent = new Intent(DoctorList.this, DoctorFullDataView.class);
+                String itemName = doctorName.get(position).getName();
+                //Toast.makeText(getApplicationContext(), item + itemName + " Selected !!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MyPersonalDoctor.this, DoctorFullDataView.class);
                 intent.putExtra("id", item);
                 startActivity(intent);
                 //Toast.makeText(getApplicationContext(), itemName + " Selected !!", Toast.LENGTH_LONG).show();
@@ -81,14 +95,13 @@ public class DoctorList extends ActionBarActivity {
     }
 
     public void addInfo(View v) {
-        Intent intent = new Intent(DoctorList.this, DoctorFullDataView.class);
+        Intent intent = new Intent(MyPersonalDoctor.this, DoctorFullDataView.class);
         intent.putExtra("id", -2);
         startActivity(intent);
     }
 
     public void btnAddNew(View v) {
-        Intent intent = new Intent(DoctorList.this, DoctorFullDataView.class);
-        intent.putExtra("id", -2);
+        Intent intent = new Intent(MyPersonalDoctor.this, AddMyPersonalDoctor.class);
         startActivity(intent);
     }
     @Override
@@ -107,7 +120,7 @@ public class DoctorList extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add) {
-            Intent intent = new Intent(DoctorList.this, DoctorFullDataView.class);
+            Intent intent = new Intent(MyPersonalDoctor.this, AddMyPersonalDoctor.class);
             intent.putExtra("id", -2);
             startActivity(intent);
             return true;
@@ -117,3 +130,4 @@ public class DoctorList extends ActionBarActivity {
     }
 
 }
+
