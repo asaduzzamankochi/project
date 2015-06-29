@@ -3,7 +3,9 @@ package com.asaduzzamankochi.familyhealth;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,6 +42,7 @@ public class PersonalDoctor extends ActionBarActivity {
     private ArrayList<Doctor> doctorName = new ArrayList<Doctor>();
 
     private int idProfile;
+    private int idPD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class PersonalDoctor extends ActionBarActivity {
 
 
         listView = (ListView) findViewById(R.id.listView);
+        registerForContextMenu(listView);
         dbHelper = new DBHelper(PersonalDoctor.this);
         Intent intent = getIntent();
         idProfile = intent.getIntExtra("id", 0);
@@ -100,6 +104,37 @@ public class PersonalDoctor extends ActionBarActivity {
         intent.putExtra("id", idProfile);
         startActivity(intent);
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.default_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.remove:
+                idPD = doctorName.get(info.position).getIdPD();
+                dbHelper.deletePersonalDoctor(idPD);
+                finish();
+                startActivity(getIntent());
+                break;
+            case R.id.remove_all:
+                for(Doctor object: doctorName){
+                    idPD = object.getIdPD();
+                    dbHelper.deletePersonalDoctor(idPD);
+                }
+                finish();
+                startActivity(getIntent());
+                break;
+
+        }
+        return super.onContextItemSelected(item);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

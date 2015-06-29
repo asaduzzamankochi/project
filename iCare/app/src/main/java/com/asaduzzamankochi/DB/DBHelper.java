@@ -329,23 +329,43 @@ public class DBHelper extends SQLiteOpenHelper {
 
     //----- personal doctor ------
 
-    public boolean insertPersonalDoctor(int idProfile, int idDoctor) {
+    public int insertPersonalDoctor(int idProfile, int idDoctor) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("idProfile", idProfile);
         values.put("idDoctor", idDoctor);
+        String sql = "SELECT * FROM personal_doctor WHERE idProfile ='"+ idProfile+"' AND idDoctor = '"+ idDoctor+"'";
+        Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
+
+        if(cursor.moveToFirst())
+        {
+            Log.i(TAG, "Data Already Exists!!");
+            return 2;
+        } else {
+            // insert
+            try {
+                sqLiteDatabase.insert("personal_doctor", null, values);
+                Log.i(TAG, "Success");
+                return 1;
+            } catch (SQLException e) {
+                Log.i(TAG, "Error");
+                return 0;
+            }
+        }
+
+    }
+    public boolean deletePersonalDoctor(int idPD) {
+
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         try {
-            sqLiteDatabase.insert("personal_doctor", null, values);
+            sqLiteDatabase.delete("personal_doctor", "id= ?", new String[]{Integer.toString(idPD)});
             Log.i(TAG, "Success");
             return true;
         } catch (SQLException e) {
             Log.i(TAG, "Error");
             return false;
         }
-
-
     }
-
     public ArrayList<Doctor> showPersonalDoctorList(int profileId) {
         ArrayList<Doctor> doctorNames = new ArrayList<Doctor>();
         Doctor doctor = new Doctor();
@@ -358,7 +378,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 // get  the  data into array,or class variable
 //                doctor.setId(cursor.getInt(cursor.getColumnIndex("id")));
 //                doctor.setName(cursor.getString(cursor.getColumnIndex("name")));
-                doctorNames.add(new Doctor(cursor.getInt(cursor.getColumnIndex("personal_doctor.idDoctor")), cursor.getString(cursor.getColumnIndex("doctor.name"))));
+                doctorNames.add(new Doctor(cursor.getInt(cursor.getColumnIndex("personal_doctor.id")),cursor.getInt(cursor.getColumnIndex("personal_doctor.idDoctor")), cursor.getString(cursor.getColumnIndex("doctor.name"))));
 //                doctorNames.add(doctor);
             } while (cursor.moveToNext());
         }

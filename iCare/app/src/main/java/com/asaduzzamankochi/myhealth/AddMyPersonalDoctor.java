@@ -78,10 +78,13 @@ public class AddMyPersonalDoctor extends ActionBarActivity {
                 profile = profileData.get(0);
                 idProfile = profile.getId();
                 int idDoctor = doctorName.get(position).getId();
-                if (dbHelper.insertPersonalDoctor(idProfile,idDoctor)){
+                if (dbHelper.insertPersonalDoctor(idProfile,idDoctor)==1){
                     Toast.makeText(getApplicationContext(), doctorName.get(position).getName() + " Added !!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(AddMyPersonalDoctor.this, MyPersonalDoctor.class);
                     startActivity(intent);
+                }
+                else if(dbHelper.insertPersonalDoctor(idProfile,idDoctor)==2){
+                    Toast.makeText(getApplicationContext()," This Doctor Already on List !!", Toast.LENGTH_LONG).show();
                 }
                 else{
                     Toast.makeText(getApplicationContext()," Failed !!", Toast.LENGTH_LONG).show();

@@ -75,15 +75,18 @@ public class AddPersonalDoctor extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //String itemName = (String) listView.getAdapter().getItem(position);
                 int idDoctor = doctorName.get(position).getId();
-                if (dbHelper.insertPersonalDoctor(idProfile,idDoctor)){
+                if (dbHelper.insertPersonalDoctor(idProfile,idDoctor)==1){
                     Toast.makeText(getApplicationContext(), doctorName.get(position).getName() + " Added !!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(AddPersonalDoctor.this, PersonalDoctor.class);
                     intent.putExtra("id", idProfile);
                     startActivity(intent);
                 }
-                else{
+                else if(dbHelper.insertPersonalDoctor(idProfile,idDoctor)==2){
+                    Toast.makeText(getApplicationContext()," This Doctor Already on List !!", Toast.LENGTH_LONG).show();
+                }else{
                     Toast.makeText(getApplicationContext()," Failed !!", Toast.LENGTH_LONG).show();
                 }
+
 
 //                Intent intent = new Intent(AddMyPersonalDoctor.this, DoctorFullDataView.class);
 //                intent.putExtra("id", item);

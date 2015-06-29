@@ -4,17 +4,33 @@ package com.asaduzzamankochi.modelClass;
  * Created by SaS on 6/18/2015.
  */
 public class Doctor {
-    int id;
-    String name;
-    String speciality;
-    String address;
-    String phone;
-    String email;
-    String notes;
+    private int id;
+    private String name;
+    private String speciality;
+    private String address;
+    private String phone;
+    private String email;
+    private String notes;
+    private int idPD;
 
-    public Doctor(){
+    public Doctor() {
 
     }
+
+    public int getIdPD() {
+        return idPD;
+    }
+
+    public void setIdPD(int idPD) {
+        this.idPD = idPD;
+    }
+
+    public Doctor( int idPD, int id, String name) {
+        this.idPD = idPD;
+        this.id = id;
+        this.name = name;
+    }
+
     public Doctor(int id, String name) {
         this.id = id;
         this.name = name;
@@ -96,7 +112,7 @@ public class Doctor {
     }
 
     @Override
-    public String toString()  {
-        return  name ;
+    public String toString() {
+        return name;
     }
 }

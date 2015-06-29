@@ -3,7 +3,9 @@ package com.asaduzzamankochi.myhealth;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,6 +44,7 @@ public class MyPersonalDoctor extends ActionBarActivity {
     private String category = "M";
 
     private int idProfile;
+    private int idPD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,7 @@ public class MyPersonalDoctor extends ActionBarActivity {
 
 
         listView = (ListView) findViewById(R.id.listView);
+        registerForContextMenu(listView);
         dbHelper = new DBHelper(MyPersonalDoctor.this);
 
         profileData = dbHelper.showProfile(category);
@@ -83,6 +87,7 @@ public class MyPersonalDoctor extends ActionBarActivity {
                 //String itemName = (String) listView.getAdapter().getItem(position);
                 int item = doctorName.get(position).getId();
                 String itemName = doctorName.get(position).getName();
+                idPD = doctorName.get(position).getIdPD();
                 //Toast.makeText(getApplicationContext(), item + itemName + " Selected !!", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(MyPersonalDoctor.this, DoctorFullDataView.class);
                 intent.putExtra("id", item);
@@ -104,6 +109,37 @@ public class MyPersonalDoctor extends ActionBarActivity {
         Intent intent = new Intent(MyPersonalDoctor.this, AddMyPersonalDoctor.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.default_context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.remove:
+                idPD = doctorName.get(info.position).getIdPD();
+                dbHelper.deletePersonalDoctor(idPD);
+                finish();
+                startActivity(getIntent());
+                break;
+            case R.id.remove_all:
+                for(Doctor object: doctorName){
+                    idPD = object.getIdPD();
+                    dbHelper.deletePersonalDoctor(idPD);
+                }
+                finish();
+                startActivity(getIntent());
+                break;
+
+        }
+        return super.onContextItemSelected(item);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

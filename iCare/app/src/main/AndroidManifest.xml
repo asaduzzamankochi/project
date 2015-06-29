@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.asaduzzamankochi.icare" >
+    package="com.asaduzzamankochi.icare">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,51 +18,59 @@
         </activity>
         <activity
             android:name="com.asaduzzamankochi.home.HomePage"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
         </activity>
         <activity
             android:name="com.asaduzzamankochi.myhealth.MyHealth"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
         </activity>
         <activity
             android:name="com.asaduzzamankochi.myhealth.MyProfileInformation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
         </activity>
         <activity
             android:name="com.asaduzzamankochi.myhealth.MyPersonalDoctor"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
         </activity>
         <activity
             android:name="com.asaduzzamankochi.myhealth.AddMyPersonalDoctor"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name="com.asaduzzamankochi.myhealth.MyAppointmentList"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name="com.asaduzzamankochi.myhealth.AddMyAppointment"
+            android:label="@string/app_name">
         </activity>
         <activity
             android:name="com.asaduzzamankochi.doctor.DoctorList"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
         </activity>
         <activity
             android:name="com.asaduzzamankochi.doctor.DoctorFullDataView"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
         </activity>
         <activity
             android:name="com.asaduzzamankochi.familyhealth.FamilyMemberList"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
         </activity>
         <activity
             android:name="com.asaduzzamankochi.familyhealth.FamilyHealth"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
         </activity>
         <activity
             android:name="com.asaduzzamankochi.familyhealth.FamilyMemberInformation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
         </activity>
         <activity
             android:name="com.asaduzzamankochi.familyhealth.PersonalDoctor"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
         </activity>
         <activity
             android:name="com.asaduzzamankochi.familyhealth.AddPersonalDoctor"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
         </activity>
 
 
