@@ -39,7 +39,7 @@ public class HomePage extends Activity {
 
         dbHelper = new DBHelper(HomePage.this);
 
-        profileData = dbHelper.showProfile(category);
+        profileData = dbHelper.showFamilyList(category);
 
         if (profileData.isEmpty()) {
 
@@ -52,8 +52,11 @@ public class HomePage extends Activity {
     public void btnAddNew(View v) {
 //        secondaryLayout.setVisibility(View.GONE);
 //        mainLayout.setVisibility(View.VISIBLE);
+        Bundle b = new Bundle();
+        b.putInt("home", -5);
+
         Intent intent = new Intent(HomePage.this, MyProfileInformation.class);
-        intent.putExtra("home",1);
+        intent.putExtras(b);
         startActivity(intent);
     }
 

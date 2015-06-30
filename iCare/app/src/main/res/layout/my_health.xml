@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:text="@string/appointment"
         android:id="@+id/btnAppointment"
+        android:onClick="btnMyAppointment"
         android:layout_marginTop="10dp" />
 
     <Button

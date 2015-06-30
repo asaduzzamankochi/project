@@ -55,6 +55,8 @@ public class AddMyPersonalDoctor extends ActionBarActivity {
 
         listView = (ListView) findViewById(R.id.listView);
         dbHelper = new DBHelper(AddMyPersonalDoctor.this);
+        Intent intent = getIntent();
+        idProfile = intent.getIntExtra("id", -1);
 
         doctorName = dbHelper.showDoctorList();
 
@@ -74,13 +76,13 @@ public class AddMyPersonalDoctor extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //String itemName = (String) listView.getAdapter().getItem(position);
-                profileData = dbHelper.showProfile(category);
-                profile = profileData.get(0);
-                idProfile = profile.getId();
+                profile = dbHelper.showProfile(category);
+//                idProfile = profile.getId();
                 int idDoctor = doctorName.get(position).getId();
                 if (dbHelper.insertPersonalDoctor(idProfile,idDoctor)==1){
                     Toast.makeText(getApplicationContext(), doctorName.get(position).getName() + " Added !!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(AddMyPersonalDoctor.this, MyPersonalDoctor.class);
+                    intent.putExtra("id",idProfile);
                     startActivity(intent);
                 }
                 else if(dbHelper.insertPersonalDoctor(idProfile,idDoctor)==2){

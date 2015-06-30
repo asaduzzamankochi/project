@@ -70,6 +70,7 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
     private Profile profile = new Profile();
 
     private int home;
+    private int id;
 
 
     @Override
@@ -107,13 +108,36 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
         dbHelper = new DBHelper(MyProfileInformation.this);
 
         Intent intent = getIntent();
-        home = intent.getIntExtra("home", 0);
+        Bundle b = intent.getExtras();
+        home = b.getInt("home");
+//        id = intent.getIntExtra("id", -1);
 //        secondaryLayout.setVisibility(View.VISIBLE);
 //        mainLayout.setVisibility(View.GONE);
+        if (home == -5) {
+            txtName.setVisibility(View.GONE);
+            txtAge.setVisibility(View.GONE);
+            txtGender.setVisibility(View.GONE);
+            txtBloodGroup.setVisibility(View.GONE);
+            txtHeight.setVisibility(View.GONE);
+            txtWeight.setVisibility(View.GONE);
+            txtPhone.setVisibility(View.GONE);
 
+            edtName.setVisibility(View.VISIBLE);
+            edtAge.setVisibility(View.VISIBLE);
+            radioGender.setVisibility(View.VISIBLE);
+            spinnerBloodGroup.setVisibility(View.VISIBLE);
+            edtHeight.setVisibility(View.VISIBLE);
+            edtWeight.setVisibility(View.VISIBLE);
+            edtPhone.setVisibility(View.VISIBLE);
 
-        showProfileData();
+            btnSubmit.setVisibility(View.VISIBLE);
+            btnEdit.setVisibility(View.GONE);
+            btnUpdate.setVisibility(View.GONE);
+            btnCancel.setVisibility(View.GONE);
 
+        } else {
+            showProfileData();
+        }
 
     }
 
@@ -128,7 +152,7 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         bloodGroup = parent.getItemAtPosition(position).toString();
-//        Toast.makeText(getApplicationContext(), "Field's could not empty"+bloodGroup, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), "Field's could not empty" + bloodGroup, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -159,7 +183,7 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
 
             if (dbHelper.insertMyProfile(profile)) {
                 Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
-                if (home == 1) {
+                if (home == -5) {
                     Intent intent = new Intent(MyProfileInformation.this, HomePage.class);
                     startActivity(intent);
 
@@ -236,38 +260,38 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
     }
 
     public void showProfileData() {
-        profileData = dbHelper.showProfile(category);
+        profile = dbHelper.showProfile(category);
 
-        if (profileData.isEmpty()) {
+//        if (profileData.isEmpty()) {
+//
+//            secondaryLayout.setVisibility(View.GONE);
+//            mainLayout.setVisibility(View.VISIBLE);
+//
+//        } else {
+//
+//            profile = profileData.get(0);
 
-            secondaryLayout.setVisibility(View.GONE);
-            mainLayout.setVisibility(View.VISIBLE);
+        name = profile.getName();
+        age = profile.getAge();
+        gender = profile.getGender();
+        bloodGroup = profile.getBloodGroup();
+        height = profile.getHeight();
+        weight = profile.getWeight();
+        phoneNo = profile.getPhoneNo();
 
-        } else {
+        category = profile.getCategory();
 
-            profile = profileData.get(0);
+        informationViewMode();
 
-            name = profile.getName();
-            age = profile.getAge();
-            gender = profile.getGender();
-            bloodGroup = profile.getBloodGroup();
-            height = profile.getHeight();
-            weight = profile.getWeight();
-            phoneNo = profile.getPhoneNo();
+        txtName.setText(name);
+        txtAge.setText(age);
+        txtGender.setText(gender);
+        txtBloodGroup.setText(bloodGroup);
+        txtHeight.setText(height);
+        txtWeight.setText(weight);
+        txtPhone.setText(phoneNo);
 
-            category = profile.getCategory();
-
-            informationViewMode();
-
-            txtName.setText(name);
-            txtAge.setText(age);
-            txtGender.setText(gender);
-            txtBloodGroup.setText(bloodGroup);
-            txtHeight.setText(height);
-            txtWeight.setText(weight);
-            txtPhone.setText(phoneNo);
-
-        }
+//        }
 
 
     }
@@ -313,9 +337,7 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
         edtPhone.setVisibility(View.VISIBLE);
 
 
-        profileData = dbHelper.showProfile(category);
-
-        profile = profileData.get(0);
+        profile = dbHelper.showProfile(category);
 
         name = profile.getName();
         age = profile.getAge();

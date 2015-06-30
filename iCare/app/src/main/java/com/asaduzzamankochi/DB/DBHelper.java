@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.asaduzzamankochi.modelClass.Appointment;
 import com.asaduzzamankochi.modelClass.Doctor;
 import com.asaduzzamankochi.modelClass.Profile;
 
@@ -28,6 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE profile(id integer primary key autoincrement,name TEXT, age TEXT, gender TEXT, bloodGroup TEXT, height TEXT, weight TEXT, phoneNo TEXT,category TEXT)");
         db.execSQL("CREATE TABLE doctor(id integer primary key autoincrement,name TEXT, speciality TEXT, address TEXT, phone TEXT, email TEXT, notes TEXT)");
         db.execSQL("CREATE TABLE personal_doctor(id integer primary key autoincrement, idProfile integer, idDoctor integer, FOREIGN KEY(idProfile) REFERENCES profile(id), FOREIGN KEY(idDoctor) REFERENCES doctor(id))");
+        db.execSQL("CREATE TABLE appointment(id integer primary key autoincrement, date TEXT, time TEXT, idProfile integer, idDoctor integer, FOREIGN KEY(idProfile) REFERENCES profile(id), FOREIGN KEY(idDoctor) REFERENCES doctor(id))");
         // db.execSQL("CREATE TABLE family_profile(id integer primary key autoincrement,name TEXT, birthDay TEXT, gender TEXT, bloodGroup TEXT, height TEXT, weight TEXT, phoneNo TEXT,category TEXT)");
     }
 
@@ -66,7 +68,6 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-
     public boolean updateMyProfile(Profile profile) {
 
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
@@ -91,39 +92,33 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<Profile> showProfile(String category) {
-        ArrayList<Profile> profileData = new ArrayList<>();
+    public Profile showProfile(String category) {
         Profile profile = new Profile();
         String query = "SELECT * FROM profile WHERE category ='" + category + "'";
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                do {
-                    // get  the  data into array,or class variable
-                    profile.setId(cursor.getInt(cursor.getColumnIndex("id")));
-                    profile.setName(cursor.getString(cursor.getColumnIndex("name")));
-                    profile.setAge(cursor.getString(cursor.getColumnIndex("age")));
-                    profile.setGender(cursor.getString(cursor.getColumnIndex("gender")));
-                    profile.setBloodGroup(cursor.getString(cursor.getColumnIndex("bloodGroup")));
-                    profile.setHeight(cursor.getString(cursor.getColumnIndex("height")));
-                    profile.setWeight(cursor.getString(cursor.getColumnIndex("weight")));
-                    profile.setPhoneNo(cursor.getString(cursor.getColumnIndex("phoneNo")));
-                    profile.setCategory(cursor.getString(cursor.getColumnIndex("category")));
+        if (cursor.moveToFirst()) {
+            do {
+                // get  the  data into array,or class variable
+                profile.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                profile.setName(cursor.getString(cursor.getColumnIndex("name")));
+                profile.setAge(cursor.getString(cursor.getColumnIndex("age")));
+                profile.setGender(cursor.getString(cursor.getColumnIndex("gender")));
+                profile.setBloodGroup(cursor.getString(cursor.getColumnIndex("bloodGroup")));
+                profile.setHeight(cursor.getString(cursor.getColumnIndex("height")));
+                profile.setWeight(cursor.getString(cursor.getColumnIndex("weight")));
+                profile.setPhoneNo(cursor.getString(cursor.getColumnIndex("phoneNo")));
+                profile.setCategory(cursor.getString(cursor.getColumnIndex("category")));
 
-                    profileData.add(profile);
-
-                    // profileData.add(new Profile(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("name")), cursor.getString(cursor.getColumnIndex("age")), cursor.getString(cursor.getColumnIndex("gender")), cursor.getString(cursor.getColumnIndex("bloodGroup")), cursor.getString(cursor.getColumnIndex("height")), cursor.getString(cursor.getColumnIndex("weight")), cursor.getString(cursor.getColumnIndex("phoneNo")), cursor.getString(cursor.getColumnIndex("category"))));
-                } while (cursor.moveToNext());
-            }
-
-
-        } else {
-            profileData.add(new Profile("NO"));
+                // profileData.add(new Profile(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("name")), cursor.getString(cursor.getColumnIndex("age")), cursor.getString(cursor.getColumnIndex("gender")), cursor.getString(cursor.getColumnIndex("bloodGroup")), cursor.getString(cursor.getColumnIndex("height")), cursor.getString(cursor.getColumnIndex("weight")), cursor.getString(cursor.getColumnIndex("phoneNo")), cursor.getString(cursor.getColumnIndex("category"))));
+            } while (cursor.moveToNext());
         }
+
+
         sqLiteDatabase.close();
-        return profileData;
+        return profile;
     }
+
 
     //Family------------------
 
@@ -197,6 +192,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
     }
+
     public boolean deleteFamilyProfile(Profile profile) {
 
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
@@ -209,6 +205,7 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
         }
     }
+
     public int checkId() {
         String query = "SELECT * FROM profile";
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -320,7 +317,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 doctor.setNotes(cursor.getString(cursor.getColumnIndex("notes")));
 
                 //doctorNames.add(new Doctor(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("name"))));
-               // doctorNames.add(doctor);
+                // doctorNames.add(doctor);
             } while (cursor.moveToNext());
         }
         sqLiteDatabase.close();
@@ -334,11 +331,10 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("idProfile", idProfile);
         values.put("idDoctor", idDoctor);
-        String sql = "SELECT * FROM personal_doctor WHERE idProfile ='"+ idProfile+"' AND idDoctor = '"+ idDoctor+"'";
+        String sql = "SELECT * FROM personal_doctor WHERE idProfile ='" + idProfile + "' AND idDoctor = '" + idDoctor + "'";
         Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
 
-        if(cursor.moveToFirst())
-        {
+        if (cursor.moveToFirst()) {
             Log.i(TAG, "Data Already Exists!!");
             return 2;
         } else {
@@ -354,6 +350,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
     }
+
     public boolean deletePersonalDoctor(int idPD) {
 
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
@@ -366,11 +363,12 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
         }
     }
+
     public ArrayList<Doctor> showPersonalDoctorList(int profileId) {
         ArrayList<Doctor> doctorNames = new ArrayList<Doctor>();
         Doctor doctor = new Doctor();
         //String query = "SELECT  * FROM doctor INNER JOIN personal_doctor ON id = idDoctor";
-        String query = "SELECT * FROM profile as p, doctor as d, personal_doctor as pd WHERE p.id = pd.idProfile AND d.id = pd.idDoctor AND p.id = '" + profileId + "' ORDER BY d.name ASC";
+        String query = "SELECT * FROM profile as p, doctor as d, personal_doctor as pd WHERE p.id = pd.idProfile AND d.id = pd.idDoctor AND p.id = '" + profileId + "'ORDER BY d.name ASC";
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
         if (cursor.moveToFirst()) {
@@ -378,12 +376,104 @@ public class DBHelper extends SQLiteOpenHelper {
                 // get  the  data into array,or class variable
 //                doctor.setId(cursor.getInt(cursor.getColumnIndex("id")));
 //                doctor.setName(cursor.getString(cursor.getColumnIndex("name")));
-                doctorNames.add(new Doctor(cursor.getInt(cursor.getColumnIndex("personal_doctor.id")),cursor.getInt(cursor.getColumnIndex("personal_doctor.idDoctor")), cursor.getString(cursor.getColumnIndex("doctor.name"))));
+                doctorNames.add(new Doctor(cursor.getInt(cursor.getColumnIndex("personal_doctor.id")), cursor.getInt(cursor.getColumnIndex("personal_doctor.idDoctor")), cursor.getString(cursor.getColumnIndex("doctor.name"))));
 //                doctorNames.add(doctor);
             } while (cursor.moveToNext());
         }
         sqLiteDatabase.close();
         return doctorNames;
     }
+//--------- Appointment----------
+    public int insertAppointment(Appointment appointment) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("date", appointment.getDate());
+        values.put("time", appointment.getTime());
+        values.put("idProfile", appointment.getIdProfile());
+        values.put("idDoctor", appointment.getIdDoctor());
+        try {
+            sqLiteDatabase.insert("appointment", null, values);
+            Log.i(TAG, "Success");
+            return 1;
+        } catch (SQLException e) {
+            Log.i(TAG, "Error");
+            return 0;
+        }
 
+    }
+
+    public ArrayList<Appointment> showAppointmentList(int idProfile) {
+        ArrayList<Appointment> appointments = new ArrayList<Appointment>();
+        Appointment appointment = new Appointment();
+        //String query = "SELECT  * FROM doctor INNER JOIN personal_doctor ON id = idDoctor";
+        String query = "SELECT * FROM appointment WHERE idProfile = '" + idProfile + "' ORDER BY date ASC";
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                appointments.add(new Appointment(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("date")), cursor.getString(cursor.getColumnIndex("time")), cursor.getInt(cursor.getColumnIndex("idProfile")), cursor.getInt(cursor.getColumnIndex("idDoctor"))));
+            } while (cursor.moveToNext());
+        }
+        sqLiteDatabase.close();
+        return appointments;
+    }
+
+    public Appointment showAppointment(int id) {
+        ArrayList<Appointment> appointments = new ArrayList<Appointment>();
+        Appointment appointment = new Appointment();
+        //String query = "SELECT  * FROM doctor INNER JOIN personal_doctor ON id = idDoctor";
+        String query = "SELECT * FROM appointment WHERE id = '" + id + "'";
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                appointment.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                appointment.setDate(cursor.getString(cursor.getColumnIndex("date")));
+                appointment.setTime(cursor.getString(cursor.getColumnIndex("time")));
+                appointment.setIdProfile(cursor.getInt(cursor.getColumnIndex("idProfile")));
+                appointment.setIdDoctor(cursor.getInt(cursor.getColumnIndex("idDoctor")));
+//                appointments.add(new Appointment(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("date")), cursor.getString(cursor.getColumnIndex("time")), cursor.getInt(cursor.getColumnIndex("idProfile")), cursor.getInt(cursor.getColumnIndex("idDoctor"))));
+            } while (cursor.moveToNext());
+        }
+        sqLiteDatabase.close();
+        return appointment;
+    }
+
+
+    public boolean updateAppointment(Appointment appointment) {
+
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("id", appointment.getId());
+        values.put("date", appointment.getDate());
+        values.put("time", appointment.getTime());
+        values.put("idProfile", appointment.getIdProfile());
+        values.put("idDoctor", appointment.getIdDoctor());
+
+        try {
+            sqLiteDatabase.update("appointment", values, "id= ?", new String[]{Integer.toString(appointment.getId())});
+            Log.i(TAG, "Success");
+            return true;
+        } catch (SQLException e) {
+            Log.i(TAG, "Error");
+            return false;
+        }
+
+    }
+
+    public boolean deleteAppointment(int id) {
+
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        try {
+            sqLiteDatabase.delete("appointment", "id= ?", new String[]{Integer.toString(id)});
+            Log.i(TAG, "Success");
+            return true;
+        } catch (SQLException e) {
+            Log.i(TAG, "Error");
+            return false;
+        }
+    }
+
+//    public ArrayList<Appointment> showTodayAppointmentList(int idPD){}
+//    public ArrayList<Appointment> showUpcomingAppointmentList(int idPD){}
 }

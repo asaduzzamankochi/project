@@ -3,9 +3,7 @@ package com.asaduzzamankochi.myhealth;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.ContextMenu;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,14 +23,13 @@ import com.asaduzzamankochi.modelClass.Profile;
 import java.util.ArrayList;
 
 /**
- * Created by kochi on 28-Jun-15.
+ * Created by kochi on 29-Jun-15.
  */
-public class MyPersonalDoctor extends ActionBarActivity {
+public class AddDoctorInAppointment extends ActionBarActivity {
 
     private LinearLayout mainLayout;
     private LinearLayout secondaryLayout;
     private Button btnAddNewFamily;
-    private TextView textView;
     private TextView textViewTitle;
 
     private static DBHelper dbHelper;
@@ -44,7 +41,6 @@ public class MyPersonalDoctor extends ActionBarActivity {
     private String category = "M";
 
     private int idProfile;
-    private int idPD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,20 +48,17 @@ public class MyPersonalDoctor extends ActionBarActivity {
         setContentView(R.layout.doctor_list);
         mainLayout = (LinearLayout) findViewById(R.id.main_layout);
         secondaryLayout = (LinearLayout) findViewById(R.id.secondary_layout);
-        btnAddNewFamily = (Button)findViewById(R.id.buttonAddNewProfile);
-        textView = (TextView)findViewById(R.id.textView);
+        btnAddNewFamily = (Button) findViewById(R.id.buttonAddNewProfile);
         textViewTitle = (TextView)findViewById(R.id.textView2);
-        textViewTitle.setText("List of My Doctor :");
+        textViewTitle.setText("List of My Doctors :");
 
 
         listView = (ListView) findViewById(R.id.listView);
         registerForContextMenu(listView);
-        dbHelper = new DBHelper(MyPersonalDoctor.this);
-        Intent intent = getIntent();
-        idProfile = intent.getIntExtra("id", -1);
-//        Toast.makeText(getApplicationContext(),idProfile+"",Toast.LENGTH_LONG).show();
-//        profile = dbHelper.showProfile(category);
-//        idProfile = profile.getId();
+        dbHelper = new DBHelper(AddDoctorInAppointment.this);
+
+        profile = dbHelper.showProfile(category);
+        idProfile = profile.getId();
 
         doctorName = dbHelper.showPersonalDoctorList(idProfile);
 
@@ -73,8 +66,7 @@ public class MyPersonalDoctor extends ActionBarActivity {
 
             secondaryLayout.setVisibility(View.VISIBLE);
             mainLayout.setVisibility(View.GONE);
-            btnAddNewFamily.setText("Add Personal Doctor");
-            textView.setText("Personal Doctor List is Empty!!");
+            btnAddNewFamily.setText("Add New Doctor");
 
         }
         //listAdapter = new ArrayAdapter<Employee>(this, android.R.layout.simple_list_item_1, doctorName);
@@ -86,13 +78,24 @@ public class MyPersonalDoctor extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //String itemName = (String) listView.getAdapter().getItem(position);
-                int item = doctorName.get(position).getId();
-                String itemName = doctorName.get(position).getName();
-                idPD = doctorName.get(position).getIdPD();
-//                Toast.makeText(getApplicationContext(), idPD + item + itemName + " Selected !!", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(MyPersonalDoctor.this, DoctorFullDataView.class);
-                intent.putExtra("id", item);
-                startActivity(intent);
+                profile = dbHelper.showProfile(category);
+                idProfile = profile.getId();
+                int idDoctor = doctorName.get(position).getId();
+                if (dbHelper.insertPersonalDoctor(idProfile,idDoctor)==1){
+                    Toast.makeText(getApplicationContext(), doctorName.get(position).getName() + " Added !!", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(AddDoctorInAppointment.this, MyPersonalDoctor.class);
+                    startActivity(intent);
+                }
+                else if(dbHelper.insertPersonalDoctor(idProfile,idDoctor)==2){
+                    Toast.makeText(getApplicationContext()," This Doctor Already on List !!", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(getApplicationContext()," Failed !!", Toast.LENGTH_LONG).show();
+                }
+
+//                Intent intent = new Intent(AddMyPersonalDoctor.this, DoctorFullDataView.class);
+//                intent.putExtra("id", item);
+//                startActivity(intent);
                 //Toast.makeText(getApplicationContext(), itemName + " Selected !!", Toast.LENGTH_LONG).show();
 
             }
@@ -101,45 +104,15 @@ public class MyPersonalDoctor extends ActionBarActivity {
     }
 
     public void addInfo(View v) {
-        Intent intent = new Intent(MyPersonalDoctor.this, DoctorFullDataView.class);
+        Intent intent = new Intent(AddDoctorInAppointment.this, DoctorFullDataView.class);
         intent.putExtra("id", -2);
         startActivity(intent);
     }
 
     public void btnAddNew(View v) {
-        Intent intent = new Intent(MyPersonalDoctor.this, AddMyPersonalDoctor.class);
-        intent.putExtra("id",idProfile);
+        Intent intent = new Intent(AddDoctorInAppointment.this, DoctorFullDataView.class);
+        intent.putExtra("id", -2);
         startActivity(intent);
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.default_context_menu, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        switch (item.getItemId()) {
-            case R.id.remove:
-                idPD = doctorName.get(info.position).getIdPD();
-                dbHelper.deletePersonalDoctor(idPD);
-                finish();
-                startActivity(getIntent());
-                break;
-            case R.id.remove_all:
-                for(Doctor object: doctorName){
-                    idPD = object.getIdPD();
-                    dbHelper.deletePersonalDoctor(idPD);
-                }
-                finish();
-                startActivity(getIntent());
-                break;
-
-        }
-        return super.onContextItemSelected(item);
     }
 
     @Override
@@ -158,8 +131,8 @@ public class MyPersonalDoctor extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add) {
-            Intent intent = new Intent(MyPersonalDoctor.this, AddMyPersonalDoctor.class);
-            intent.putExtra("id",idProfile);
+            Intent intent = new Intent(AddDoctorInAppointment.this, DoctorFullDataView.class);
+            intent.putExtra("id", -2);
             startActivity(intent);
             return true;
         }
@@ -168,4 +141,3 @@ public class MyPersonalDoctor extends ActionBarActivity {
     }
 
 }
-
