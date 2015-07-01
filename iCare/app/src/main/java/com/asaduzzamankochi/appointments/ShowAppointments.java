@@ -1,4 +1,4 @@
-package com.asaduzzamankochi.myhealth;
+package com.asaduzzamankochi.appointments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

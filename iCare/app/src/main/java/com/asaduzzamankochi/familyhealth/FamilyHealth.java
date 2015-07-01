@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.asaduzzamankochi.icare.R;
-import com.asaduzzamankochi.myhealth.MyProfileInformation;
+import com.asaduzzamankochi.appointments.MyAppointmentList;
 
 /**
  * Created by kochi on 23-Jun-15.
@@ -36,6 +36,14 @@ public class FamilyHealth extends ActionBarActivity {
     public void btnMyPersonalDoctor(View v) {
 
         Intent intent = new Intent(FamilyHealth.this, PersonalDoctor.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
+
+    }
+
+    public void btnMyAppointment(View v) {
+
+        Intent intent = new Intent(FamilyHealth.this, MyAppointmentList.class);
         intent.putExtra("id", id);
         startActivity(intent);
 

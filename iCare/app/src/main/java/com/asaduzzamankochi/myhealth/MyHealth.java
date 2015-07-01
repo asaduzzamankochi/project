@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.asaduzzamankochi.DB.DBHelper;
+import com.asaduzzamankochi.appointments.MyAppointmentList;
 import com.asaduzzamankochi.icare.R;
 import com.asaduzzamankochi.modelClass.Profile;
 
@@ -45,7 +45,8 @@ public class MyHealth extends ActionBarActivity {
         intent.putExtra("id", id);
         startActivity(intent);
 
-    }public void btnMyAppointment(View v) {
+    }
+    public void btnMyAppointment(View v) {
 
         Intent intent = new Intent(MyHealth.this, MyAppointmentList.class);
         intent.putExtra("id", id);

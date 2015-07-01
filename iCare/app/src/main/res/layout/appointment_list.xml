@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_color">
 
     <LinearLayout
         android:orientation="vertical"
@@ -16,7 +17,9 @@
             android:text="Today"
             android:id="@+id/buttonToday"
             android:layout_gravity="center_horizontal"
-            android:onClick="showTodayList" />
+            android:onClick="showTodayList"
+            android:background="#8D96AC"
+            android:textColor="#000000" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,7 +28,8 @@
             android:text="No Appointments for Today"
             android:id="@+id/textViewTodayMessage"
             android:visibility="gone"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:textColor="#000000" />
 
         <ListView
             android:layout_width="match_parent"
@@ -48,7 +52,9 @@
             android:text="Upcoming"
             android:id="@+id/buttonUpcoming"
             android:layout_gravity="center_horizontal"
-            android:onClick="showUpcomingList" />
+            android:onClick="showUpcomingList"
+            android:background="#8D96AC"
+            android:textColor="#000000" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -57,7 +63,8 @@
             android:text="No Appointments Yet"
             android:id="@+id/textViewUpcomingMessage"
             android:visibility="gone"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:textColor="#000000" />
 
         <ListView
             android:layout_width="match_parent"

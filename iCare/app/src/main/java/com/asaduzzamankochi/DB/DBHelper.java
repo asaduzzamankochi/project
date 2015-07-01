@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.asaduzzamankochi.modelClass.Appointment;
+import com.asaduzzamankochi.modelClass.CareCenter;
 import com.asaduzzamankochi.modelClass.Doctor;
 import com.asaduzzamankochi.modelClass.Profile;
 
@@ -28,6 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE profile(id integer primary key autoincrement,name TEXT, age TEXT, gender TEXT, bloodGroup TEXT, height TEXT, weight TEXT, phoneNo TEXT,category TEXT)");
         db.execSQL("CREATE TABLE doctor(id integer primary key autoincrement,name TEXT, speciality TEXT, address TEXT, phone TEXT, email TEXT, notes TEXT)");
+        db.execSQL("CREATE TABLE care_center(id integer primary key autoincrement,name TEXT, address TEXT, phone TEXT, email TEXT, notes TEXT)");
         db.execSQL("CREATE TABLE personal_doctor(id integer primary key autoincrement, idProfile integer, idDoctor integer, FOREIGN KEY(idProfile) REFERENCES profile(id), FOREIGN KEY(idDoctor) REFERENCES doctor(id))");
         db.execSQL("CREATE TABLE appointment(id integer primary key autoincrement, date TEXT, time TEXT, idProfile integer, idDoctor integer, FOREIGN KEY(idProfile) REFERENCES profile(id), FOREIGN KEY(idDoctor) REFERENCES doctor(id))");
         // db.execSQL("CREATE TABLE family_profile(id integer primary key autoincrement,name TEXT, birthDay TEXT, gender TEXT, bloodGroup TEXT, height TEXT, weight TEXT, phoneNo TEXT,category TEXT)");
@@ -474,6 +476,106 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-//    public ArrayList<Appointment> showTodayAppointmentList(int idPD){}
-//    public ArrayList<Appointment> showUpcomingAppointmentList(int idPD){}
+    //---------- Care Center Information
+
+    public boolean insertCareCenter(CareCenter careCenter) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", careCenter.getName());
+        values.put("address", careCenter.getAddress());
+        values.put("phone", careCenter.getPhone());
+        values.put("email", careCenter.getEmail());
+        values.put("notes", careCenter.getNotes());
+        try {
+            sqLiteDatabase.insert("care_center", null, values);
+            Log.i(TAG, "Success");
+            return true;
+        } catch (SQLException e) {
+            Log.i(TAG, "Error");
+            return false;
+        }
+
+
+    }
+
+    public boolean updateCareCenter(CareCenter careCenter) {
+
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", careCenter.getName());
+        values.put("address", careCenter.getAddress());
+        values.put("phone", careCenter.getPhone());
+        values.put("email", careCenter.getEmail());
+        values.put("notes", careCenter.getNotes());
+
+        try {
+            sqLiteDatabase.update("care_center", values, "id= ?", new String[]{Integer.toString(careCenter.getId())});
+            Log.i(TAG, "Success");
+            return true;
+        } catch (SQLException e) {
+            Log.i(TAG, "Error");
+            return false;
+        }
+
+    }
+
+    public boolean deleteCareCenter(CareCenter careCenter) {
+
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        try {
+            sqLiteDatabase.delete("care_center", "id= ?", new String[]{Integer.toString(careCenter.getId())});
+            Log.i(TAG, "Success");
+            return true;
+        } catch (SQLException e) {
+            Log.i(TAG, "Error");
+            return false;
+        }
+    }
+
+
+    public ArrayList<CareCenter> showCareCenterList() {
+        ArrayList<CareCenter> careCenters = new ArrayList<CareCenter>();
+        CareCenter careCenter = new CareCenter();
+        String query = "SELECT  * FROM care_center ORDER BY name ASC";
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                // get  the  data into array,or class variable
+//                doctor.setId(cursor.getInt(cursor.getColumnIndex("id")));
+//                doctor.setName(cursor.getString(cursor.getColumnIndex("name")));
+                careCenters.add(new CareCenter(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("name"))));
+//                doctorNames.add(doctor);
+            } while (cursor.moveToNext());
+        }
+        sqLiteDatabase.close();
+        return careCenters;
+    }
+
+    public CareCenter showCareCenterInformation(int id) {
+        //ArrayList<Doctor> doctorNames = new ArrayList<Doctor>();
+        CareCenter careCenter = new CareCenter();
+        String query = "SELECT  * FROM care_center WHERE id ='" + id + "'";
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                // get  the  data into array,or class variable
+                careCenter.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                careCenter.setName(cursor.getString(cursor.getColumnIndex("name")));
+                careCenter.setAddress(cursor.getString(cursor.getColumnIndex("address")));
+                careCenter.setPhone(cursor.getString(cursor.getColumnIndex("phone")));
+                careCenter.setEmail(cursor.getString(cursor.getColumnIndex("email")));
+                careCenter.setNotes(cursor.getString(cursor.getColumnIndex("notes")));
+
+                //doctorNames.add(new Doctor(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("name"))));
+                // doctorNames.add(doctor);
+            } while (cursor.moveToNext());
+        }
+        sqLiteDatabase.close();
+        return careCenter;
+    }
+
+
+
 }

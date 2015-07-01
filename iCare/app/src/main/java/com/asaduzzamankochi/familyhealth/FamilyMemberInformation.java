@@ -3,6 +3,7 @@ package com.asaduzzamankochi.familyhealth;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -414,6 +415,14 @@ public class FamilyMemberInformation extends ActionBarActivity implements Adapte
             }
         }
         return index;
+    }
+
+    public void callNumber(View v) {
+        String num = txtPhone.getText().toString();
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + num));
+        startActivity(Intent.createChooser(intent, "Call via..."));
+//        startActivity(intent);
+
     }
 
 

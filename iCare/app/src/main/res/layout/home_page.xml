@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/background_color">
 
     <LinearLayout
         android:id="@+id/secondary_layout"
@@ -31,40 +32,68 @@
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:gravity="center">
 
-        <Button
-            android:id="@+id/btnMyProfile"
-            android:layout_width="150dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-100dp"
-            android:onClick="btnMyHealth"
-            android:text="@string/my_health" />
+            android:orientation="horizontal"
+            android:gravity="center">
 
-        <Button
-            android:id="@+id/btnFamilyProfile"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:onClick="btnFamilyHealth"
-            android:text="@string/family_health" />
+            <Button
+                android:id="@+id/btnMyProfile"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:onClick="btnMyHealth"
+                android:background="@mipmap/my"
+                android:text="@string/my_health"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="bottom|center" />
 
-        <Button
-            android:id="@+id/btnHospitals"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="@string/hospitals" />
+            <Button
+                android:id="@+id/btnFamilyProfile"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:onClick="btnFamilyHealth"
+                android:background="@mipmap/family"
+                android:text="@string/family_health"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="bottom|center" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/btnDoctors"
-            android:layout_width="150dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:onClick="doctorList"
-            android:text="@string/doctors" />
+            android:orientation="horizontal"
+            android:gravity="center">
+
+
+            <Button
+                android:id="@+id/btnHospitals"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:onClick="careCenterList"
+                android:background="@mipmap/hospital"
+                android:text="Care Centers"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="bottom|center" />
+
+            <Button
+                android:id="@+id/btnDoctors"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:onClick="doctorList"
+                android:background="@mipmap/doctor"
+                android:text="@string/doctors"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="bottom|center" />
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

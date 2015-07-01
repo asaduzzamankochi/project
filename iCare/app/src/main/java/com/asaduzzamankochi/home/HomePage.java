@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.asaduzzamankochi.DB.DBHelper;
+import com.asaduzzamankochi.careCenter.CareCenterList;
 import com.asaduzzamankochi.doctor.DoctorList;
 import com.asaduzzamankochi.familyhealth.FamilyMemberList;
 import com.asaduzzamankochi.icare.R;
@@ -74,6 +75,11 @@ public class HomePage extends Activity {
 
     public void doctorList(View v) {
         Intent intent = new Intent(HomePage.this, DoctorList.class);
+        startActivity(intent);
+    }
+
+    public void careCenterList(View v) {
+        Intent intent = new Intent(HomePage.this, CareCenterList.class);
         startActivity(intent);
     }
 

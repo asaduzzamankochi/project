@@ -1,4 +1,4 @@
-package com.asaduzzamankochi.myhealth;
+package com.asaduzzamankochi.appointments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -14,7 +14,6 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.asaduzzamankochi.DB.DBHelper;
 import com.asaduzzamankochi.icare.R;

@@ -1,4 +1,4 @@
-package com.asaduzzamankochi.myhealth;
+package com.asaduzzamankochi.appointments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.asaduzzamankochi.DB.DBHelper;
 import com.asaduzzamankochi.icare.R;
@@ -120,7 +119,7 @@ public class MyAppointmentList extends ActionBarActivity {
         month = calendar.get(Calendar.MONTH);
         month++;
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        Toast.makeText(getApplicationContext(), stringCheck(day) + "-" + stringCheck(month) + "-" + year, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), stringCheck(day) + "-" + stringCheck(month) + "-" + year, Toast.LENGTH_LONG).show();
         return stringCheck(day) + "-" + stringCheck(month) + "-" + year;
     }
 

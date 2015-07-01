@@ -1,6 +1,7 @@
 package com.asaduzzamankochi.myhealth;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -87,6 +88,7 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
         txtHeight = (TextView) findViewById(R.id.txtViewHeight);
         txtWeight = (TextView) findViewById(R.id.txtViewWeight);
         txtPhone = (TextView) findViewById(R.id.txtViewPhone);
+        txtPhone.setClickable(true);
 
         edtName = (EditText) findViewById(R.id.edtName);
         edtAge = (EditText) findViewById(R.id.edtAge);
@@ -262,15 +264,6 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
     public void showProfileData() {
         profile = dbHelper.showProfile(category);
 
-//        if (profileData.isEmpty()) {
-//
-//            secondaryLayout.setVisibility(View.GONE);
-//            mainLayout.setVisibility(View.VISIBLE);
-//
-//        } else {
-//
-//            profile = profileData.get(0);
-
         name = profile.getName();
         age = profile.getAge();
         gender = profile.getGender();
@@ -290,8 +283,6 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
         txtHeight.setText(height);
         txtWeight.setText(weight);
         txtPhone.setText(phoneNo);
-
-//        }
 
 
     }
@@ -392,5 +383,12 @@ public class MyProfileInformation extends ActionBarActivity implements AdapterVi
         return index;
     }
 
+    public void callNumber(View v){
+        String num = txtPhone.getText().toString();
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + num));
+        startActivity(Intent.createChooser(intent, "Call via..."));
+//        startActivity(intent);
+
+    }
 
 }
