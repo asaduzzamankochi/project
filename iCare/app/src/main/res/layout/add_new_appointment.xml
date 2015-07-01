@@ -158,7 +158,8 @@
                     android:layout_gravity="center_horizontal"
                     android:onClick="addAppointment"
                     android:text="Add Appointment"
-                    android:visibility="visible"/>
+                    android:visibility="visible"
+                    android:textColor="#ffffff" />
 
                 <Button
                     android:id="@+id/buttonEdit"
@@ -169,7 +170,8 @@
                     android:onClick="editAppointment"
                     android:text="Update Appointment"
                     android:visibility="gone"
-                    android:layout_marginRight="10dp" />
+                    android:layout_marginRight="10dp"
+                    android:textColor="#ffffff" />
 
                 <Button
                     android:id="@+id/buttonUpdate"
@@ -179,7 +181,8 @@
                     android:layout_gravity="center_horizontal"
                     android:onClick="updateAppointment"
                     android:text="@string/update"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:textColor="#ffffff" />
 
                 <Button
                     android:id="@+id/buttonDelete"
@@ -189,7 +192,8 @@
                     android:layout_gravity="center_horizontal"
                     android:onClick="deleteAppointment"
                     android:text="Delete"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:textColor="#ffffff" />
             </LinearLayout>
 
         </LinearLayout>

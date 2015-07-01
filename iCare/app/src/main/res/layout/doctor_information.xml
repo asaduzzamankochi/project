@@ -56,7 +56,8 @@
                     android:text="@string/name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:visibility="gone"
-                    android:background="@drawable/input_form_rectangle" />
+                    android:background="@drawable/input_form_rectangle"
+                    android:gravity="center" />
 
                 <EditText
                     android:id="@+id/edtDocotrName"
@@ -65,7 +66,8 @@
                     android:layout_marginLeft="50dp"
                     android:inputType="text"
                     android:visibility="visible"
-                    android:background="@drawable/input_form_rectangle" />
+                    android:background="@drawable/input_form_rectangle"
+                    android:gravity="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -83,13 +85,14 @@
 
                 <TextView
                     android:id="@+id/txtViewSpeciality"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="27dp"
                     android:text="@string/name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:visibility="gone"
-                    android:background="@drawable/input_form_rectangle" />
+                    android:background="@drawable/input_form_rectangle"
+                    android:gravity="center" />
 
                 <EditText
                     android:id="@+id/edtSpeciality"
@@ -98,7 +101,8 @@
                     android:layout_marginLeft="27dp"
                     android:inputType="textMultiLine"
                     android:visibility="visible"
-                    android:background="@drawable/input_form_rectangle" />
+                    android:background="@drawable/input_form_rectangle"
+                    android:gravity="center" />
 
             </LinearLayout>
 
@@ -123,7 +127,8 @@
                     android:text="@string/name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:visibility="gone"
-                    android:background="@drawable/input_form_rectangle" />
+                    android:background="@drawable/input_form_rectangle"
+                    android:gravity="center" />
 
                 <EditText
                     android:id="@+id/edtAddress"
@@ -132,7 +137,8 @@
                     android:layout_marginLeft="38dp"
                     android:inputType="textPostalAddress"
                     android:visibility="visible"
-                    android:background="@drawable/input_form_rectangle" />
+                    android:background="@drawable/input_form_rectangle"
+                    android:gravity="center" />
             </LinearLayout>
 
 
@@ -151,7 +157,7 @@
 
                 <TextView
                     android:id="@+id/txtViewDoctorPhone"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
                     android:text="@string/name"
@@ -159,7 +165,8 @@
                     android:visibility="gone"
                     android:clickable="true"
                     android:onClick="callNumber"
-                    android:background="@drawable/input_form_rectangle" />
+                    android:background="@drawable/input_form_rectangle"
+                    android:gravity="center" />
 
                 <EditText
                     android:id="@+id/edtDoctorPhone"
@@ -168,7 +175,8 @@
                     android:layout_marginLeft="25dp"
                     android:inputType="phone"
                     android:visibility="visible"
-                    android:background="@drawable/input_form_rectangle" />
+                    android:background="@drawable/input_form_rectangle"
+                    android:gravity="center" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -193,7 +201,8 @@
                     android:visibility="gone"
                     android:clickable="true"
                     android:onClick="sendEmail"
-                    android:background="@drawable/input_form_rectangle" />
+                    android:background="@drawable/input_form_rectangle"
+                    android:gravity="center" />
 
                 <EditText
                     android:id="@+id/edtEmail"
@@ -202,7 +211,8 @@
                     android:layout_marginLeft="60dp"
                     android:inputType="textEmailAddress"
                     android:visibility="visible"
-                    android:background="@drawable/input_form_rectangle" />
+                    android:background="@drawable/input_form_rectangle"
+                    android:gravity="center" />
             </LinearLayout>
 
 
@@ -221,22 +231,24 @@
 
                 <TextView
                     android:id="@+id/txtViewNotes"
-                    android:layout_width="230dp"
+                    android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:layout_marginLeft="57dp"
                     android:text="@string/name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:visibility="gone"
-                    android:background="@drawable/input_form_rectangle" />
+                    android:background="@drawable/input_form_rectangle"
+                    android:gravity="center" />
 
                 <EditText
                     android:id="@+id/edtNotes"
-                    android:layout_width="230dp"
+                    android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:layout_marginLeft="57dp"
                     android:background="@drawable/input_form_rectangle"
                     android:inputType="textMultiLine"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:gravity="center" />
             </LinearLayout>
 
 
@@ -254,7 +266,7 @@
                     android:layout_gravity="center_horizontal"
                     android:onClick="addDoctor"
                     android:text="Add Doctor"
-                    android:textColor="#000000"
+                    android:textColor="#ffffff"
                     android:background="@drawable/button_shape" />
 
                 <Button
@@ -265,7 +277,8 @@
                     android:onClick="editDoctor"
                     android:text="@string/edit_profile"
                     android:visibility="gone"
-                    android:background="@drawable/button_shape" />
+                    android:background="@drawable/button_shape"
+                    android:textColor="#ffffff" />
 
                 <Button
                     android:id="@+id/btnUpdate"
@@ -275,7 +288,8 @@
                     android:onClick="updateDoctor"
                     android:text="@string/update"
                     android:visibility="gone"
-                    android:background="@drawable/button_shape" />
+                    android:background="@drawable/button_shape"
+                    android:textColor="#ffffff" />
 
                 <Button
                     android:id="@+id/btnDelete"
@@ -285,7 +299,8 @@
                     android:onClick="deleteDoctor"
                     android:text="@string/delete"
                     android:visibility="gone"
-                    android:background="@drawable/button_shape" />
+                    android:background="@drawable/button_shape"
+                    android:textColor="#ffffff" />
             </LinearLayout>
 
         </LinearLayout>

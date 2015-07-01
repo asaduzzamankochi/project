@@ -28,7 +28,7 @@
                 android:onClick="btnAddNew"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_gravity="center"
-                android:textColor="#ff630cff"
+                android:textColor="#ffffff"
                 android:background="@drawable/menu_button" />
 
 
@@ -362,7 +362,7 @@
                     android:layout_gravity="center_horizontal"
                     android:onClick="addProfile"
                     android:text="Add Profile"
-                    android:textColor="#000000"
+                    android:textColor="#ffffff"
                     android:background="@drawable/button_shape" />
 
                 <Button
@@ -373,7 +373,8 @@
                     android:onClick="editProfile"
                     android:text="@string/edit_profile"
                     android:background="@drawable/button_shape"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:textColor="#ffffff" />
                 <Button
                     android:id="@+id/btnUpdate"
                     android:layout_width="120dp"
@@ -383,7 +384,8 @@
                     android:text="@string/update"
                     android:background="@drawable/button_shape"
                     android:visibility="gone"
-                    android:layout_marginRight="10dp" />
+                    android:layout_marginRight="10dp"
+                    android:textColor="#ffffff" />
 
                 <Button
                     android:id="@+id/btnDelete"
@@ -393,7 +395,8 @@
                     android:onClick="cancelProfile"
                     android:text="@string/cancel"
                     android:background="@drawable/button_shape"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:textColor="#ffffff" />
             </LinearLayout>
 
         </LinearLayout>
