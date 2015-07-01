@@ -12,5 +12,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="No List"
         android:id="@+id/txtNameView"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textColor="#ff3eff04" />
 </LinearLayout>

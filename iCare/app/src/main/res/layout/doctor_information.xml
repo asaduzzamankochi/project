@@ -30,7 +30,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/doctor_title"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#ff0605ff" />
             </LinearLayout>
 
             <LinearLayout
@@ -44,7 +45,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/doctor_name"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#000000" />
 
                 <TextView
                     android:id="@+id/txtViewDoctorName"
@@ -53,7 +55,8 @@
                     android:layout_marginLeft="50dp"
                     android:text="@string/name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:background="@drawable/input_form_rectangle" />
 
                 <EditText
                     android:id="@+id/edtDocotrName"
@@ -61,7 +64,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp"
                     android:inputType="text"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@drawable/input_form_rectangle" />
             </LinearLayout>
 
             <LinearLayout
@@ -74,7 +78,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/speciality"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#000000" />
 
                 <TextView
                     android:id="@+id/txtViewSpeciality"
@@ -83,7 +88,8 @@
                     android:layout_marginLeft="27dp"
                     android:text="@string/name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:background="@drawable/input_form_rectangle" />
 
                 <EditText
                     android:id="@+id/edtSpeciality"
@@ -91,7 +97,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="27dp"
                     android:inputType="textMultiLine"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@drawable/input_form_rectangle" />
 
             </LinearLayout>
 
@@ -105,7 +112,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/address"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#000000" />
 
                 <TextView
                     android:id="@+id/txtViewAddress"
@@ -114,7 +122,8 @@
                     android:layout_marginLeft="38dp"
                     android:text="@string/name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:background="@drawable/input_form_rectangle" />
 
                 <EditText
                     android:id="@+id/edtAddress"
@@ -122,7 +131,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="38dp"
                     android:inputType="textPostalAddress"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@drawable/input_form_rectangle" />
             </LinearLayout>
 
 
@@ -136,7 +146,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/phone_no"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#000000" />
 
                 <TextView
                     android:id="@+id/txtViewDoctorPhone"
@@ -147,7 +158,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:visibility="gone"
                     android:clickable="true"
-                    android:onClick="callNumber"/>
+                    android:onClick="callNumber"
+                    android:background="@drawable/input_form_rectangle" />
 
                 <EditText
                     android:id="@+id/edtDoctorPhone"
@@ -155,7 +167,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
                     android:inputType="phone"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@drawable/input_form_rectangle" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -167,7 +180,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/email"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#000000" />
 
                 <TextView
                     android:id="@+id/txtViewEmail"
@@ -178,7 +192,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:visibility="gone"
                     android:clickable="true"
-                    android:onClick="sendEmail"/>
+                    android:onClick="sendEmail"
+                    android:background="@drawable/input_form_rectangle" />
 
                 <EditText
                     android:id="@+id/edtEmail"
@@ -186,7 +201,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="60dp"
                     android:inputType="textEmailAddress"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@drawable/input_form_rectangle" />
             </LinearLayout>
 
 
@@ -200,7 +216,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/notes"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#000000" />
 
                 <TextView
                     android:id="@+id/txtViewNotes"
@@ -209,14 +226,15 @@
                     android:layout_marginLeft="57dp"
                     android:text="@string/name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:background="@drawable/input_form_rectangle" />
 
                 <EditText
                     android:id="@+id/edtNotes"
                     android:layout_width="230dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="57dp"
-                    android:background="#fff7f2ff"
+                    android:background="@drawable/input_form_rectangle"
                     android:inputType="textMultiLine"
                     android:visibility="visible" />
             </LinearLayout>
@@ -231,38 +249,43 @@
 
                 <Button
                     android:id="@+id/btnSubmit"
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:onClick="addDoctor"
-                    android:text="Add Doctor" />
+                    android:text="Add Doctor"
+                    android:textColor="#000000"
+                    android:background="@drawable/button_shape" />
 
                 <Button
                     android:id="@+id/btnEdit"
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:onClick="editDoctor"
                     android:text="@string/edit_profile"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:background="@drawable/button_shape" />
 
                 <Button
                     android:id="@+id/btnUpdate"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:onClick="updateDoctor"
                     android:text="@string/update"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:background="@drawable/button_shape" />
 
                 <Button
                     android:id="@+id/btnDelete"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:onClick="deleteDoctor"
                     android:text="@string/delete"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:background="@drawable/button_shape" />
             </LinearLayout>
 
         </LinearLayout>

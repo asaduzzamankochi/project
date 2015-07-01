@@ -28,7 +28,8 @@
                 android:onClick="btnAddNew"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_gravity="center"
-                android:textColor="#ff630cff" />
+                android:textColor="#ff630cff"
+                android:background="@drawable/menu_button" />
 
 
         </LinearLayout>

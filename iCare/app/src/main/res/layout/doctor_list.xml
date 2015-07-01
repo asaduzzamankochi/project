@@ -20,7 +20,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Doctor List is Empty!!"
             android:id="@+id/textView"
-            android:layout_marginBottom="40dp" />
+            android:layout_marginBottom="40dp"
+            android:textColor="#ff630cff" />
 
         <Button
             android:id="@+id/buttonAddNewProfile"
@@ -30,7 +31,9 @@
             android:gravity="center"
             android:onClick="btnAddNew"
             android:text="@string/add_new_doctor"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ff630cff"
+            android:background="@drawable/menu_button" />
 
 
     </LinearLayout>
@@ -50,7 +53,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
             android:id="@+id/textView2"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            android:textColor="#ff0605ff" />
 
         <ListView
             android:id="@+id/listView"
